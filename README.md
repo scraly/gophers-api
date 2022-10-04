@@ -2,6 +2,8 @@
 
 This simple API handle a list of Gophers.
 
+<img src="https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png" alt="yoda-gopher.png" width="300"/> <img src="https://raw.githubusercontent.com/scraly/gophers/main/back-to-the-future-v2.png" alt="back-to-the-future-v2.png" width="300"/>
+
 ## How to install 
 
 ### prerequisites
