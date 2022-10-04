@@ -1,0 +1,83 @@
+consumes:
+- application/json
+info:
+  description: HTTP server that handle cute Gophers.
+  title: gophers-api
+  version: 0.1.0
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
+
+paths:
+  /healthz:
+    get:
+      operationId: checkHealth
+      produces:
+      - text/plain
+      responses:
+        '200':
+          description: OK message.
+          schema:
+            type: string
+            enum:
+            - OK
+  /gophers:
+    get:
+      description: List Gophers
+      produces:
+       - application/json
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: false
+          description: Gopher name
+      responses:
+        200:
+          description: Return the Gophers list.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Gopher'
+
+  /gopher:
+    post:
+      summary: Add a new Gopher
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: gopher
+          description: The Gopher to create.
+          schema:
+            type: object
+            required:
+              - name
+              - path
+              - url
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+              url:
+                type: string
+      responses:
+        201:
+          description: Created
+
+definitions:
+  Gopher:
+    type: object
+    properties:
+      name:
+        type: string
+        example: my-gopher
+      path:
+        type: string
+        example: my-gopher.png
+      url:
+        type: string
+        example: https://raw.githubusercontent.com/scraly/gophers/main/arrow-gopher.png
