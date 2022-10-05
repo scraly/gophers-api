@@ -89,7 +89,7 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 
 	for _, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
-			fmt.Println("name", gopherParam.Name, "name found in DB", myGopher.Name)
+			fmt.Println("name", gopherParam.Name, "name found in DB")
 
 			return operations.NewGetGopherOK().WithPayload(
 				&models.Gopher{
@@ -115,6 +115,7 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	//TODO: checker si un gopher n'existe pas deja avec le meme name (unicité du name!)
 	gophers = append(gophers, gopher{*name, *path, *url})
 
+	fmt.Println("Gopher", *name, "created!")
 	return operations.NewPostGopherOK().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
 
