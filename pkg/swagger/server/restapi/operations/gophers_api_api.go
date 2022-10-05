@@ -43,6 +43,9 @@ func NewGophersAPIAPI(spec *loads.Document) *GophersAPIAPI {
 		JSONProducer: runtime.JSONProducer(),
 		TxtProducer:  runtime.TextProducer(),
 
+		GetGopherHandler: GetGopherHandlerFunc(func(params GetGopherParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetGopher has not yet been implemented")
+		}),
 		GetGophersHandler: GetGophersHandlerFunc(func(params GetGophersParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetGophers has not yet been implemented")
 		}),
@@ -91,6 +94,8 @@ type GophersAPIAPI struct {
 	//   - text/plain
 	TxtProducer runtime.Producer
 
+	// GetGopherHandler sets the operation handler for the get gopher operation
+	GetGopherHandler GetGopherHandler
 	// GetGophersHandler sets the operation handler for the get gophers operation
 	GetGophersHandler GetGophersHandler
 	// PostGopherHandler sets the operation handler for the post gopher operation
@@ -177,6 +182,9 @@ func (o *GophersAPIAPI) Validate() error {
 		unregistered = append(unregistered, "TxtProducer")
 	}
 
+	if o.GetGopherHandler == nil {
+		unregistered = append(unregistered, "GetGopherHandler")
+	}
 	if o.GetGophersHandler == nil {
 		unregistered = append(unregistered, "GetGophersHandler")
 	}
@@ -276,6 +284,10 @@ func (o *GophersAPIAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/gopher"] = NewGetGopher(o.context, o.GetGopherHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

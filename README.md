@@ -54,10 +54,22 @@ $ task swagger:serve
 $ curl localhost:8080/gophers
 ```
 
-* Get all Gophers with the input name
+Response:
 
 ```bash
-$ curl localhost:8080/gophers?name=5th-element
+[{"name":"5th-element","path":"5th-element.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"},{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}]
+```
+
+* Get a Gopher with the input name
+
+```bash
+$ curl localhost:8080/gopher?name=5th-element
+```
+
+Response:
+
+```bash
+{"name":"5th-element","path":"5th-element.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"}
 ```
 
 * Add a new Gopher
@@ -66,6 +78,12 @@ $ curl localhost:8080/gophers?name=5th-element
 $ curl -X POST localhost:8080/gopher \
    -H "Content-Type: application/json" \
    -d '{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
+```
+
+Response:
+
+```bash
+{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
 ```
 
 ## Notes

@@ -36,7 +36,13 @@ func main() {
 
 	api.GetGophersHandler = operations.GetGophersHandlerFunc(GetGophers)
 
-	api.PostGopherHandler = operations.PostGopherHandlerFunc(PostGopher)
+	api.GetGopherHandler = operations.GetGopherHandlerFunc(GetGopherByName)
+
+	api.PostGopherHandler = operations.PostGopherHandlerFunc(CreateGopher)
+
+	//TODO: DeleteGopher
+
+	//TODO: UpdateGopher
 
 	// Start server which listening
 	if err := server.Serve(); err != nil {
@@ -65,39 +71,51 @@ func Health(operations.CheckHealthParams) middleware.Responder {
 	return operations.NewCheckHealthOK().WithPayload("OK")
 }
 
-// Display Gopher list with optional filter
+// Returns a a list of Gophers
 func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 
 	var gophersList []*models.Gopher
 
-	// get Gophers by name
-	if gopher.Name != nil {
-
-		for _, myGopher := range gophers {
-			//TODO: faire un starting with?
-			if myGopher.Name == *gopher.Name {
-				fmt.Println("name", *gopher.Name, "name found in DB", myGopher.Name)
-				gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
-			}
-		}
-	} else {
-		// get all existing Gophers
-		for _, myGopher := range gophers {
-			gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
-		}
+	// Get all existing Gophers
+	for _, myGopher := range gophers {
+		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
 	}
 
 	return operations.NewGetGophersOK().WithPayload(gophersList)
 }
 
-// Add new Gopher
-func PostGopher(gopherParam operations.PostGopherParams) middleware.Responder {
+// Returns an object of type Gopher with a given name
+func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responder {
+
+	if gopherParam.Name != nil {
+
+		for _, myGopher := range gophers {
+			if myGopher.Name == *gopherParam.Name {
+				fmt.Println("name", *gopherParam.Name, "name found in DB", myGopher.Name)
+
+				return operations.NewGetGopherOK().WithPayload(
+					&models.Gopher{
+						Name: myGopher.Name,
+						Path: myGopher.Path,
+						URL:  myGopher.URL})
+			}
+		}
+	}
+
+	//If gopher does not exists, we return an empty object
+	return operations.NewGetGopherOK().WithPayload(&models.Gopher{})
+}
+
+// Add a new Gopher
+func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder {
 
 	name := gopherParam.Gopher.Name
 	path := gopherParam.Gopher.Path
 	url := gopherParam.Gopher.URL
 
 	// Add new gopher in the list of existing Gophers
+
+	//TODO: checker si un gopher n'existe pas deja avec le meme name (unicité du name!)
 	gophers = append(gophers, gopher{*name, *path, *url})
 
 	return operations.NewPostGopherOK().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})

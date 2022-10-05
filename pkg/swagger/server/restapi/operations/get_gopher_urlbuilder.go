@@ -11,15 +11,19 @@ import (
 	golangswaggerpaths "path"
 )
 
-// GetGophersURL generates an URL for the get gophers operation
-type GetGophersURL struct {
+// GetGopherURL generates an URL for the get gopher operation
+type GetGopherURL struct {
+	Name *string
+
 	_basePath string
+	// avoid unkeyed usage
+	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetGophersURL) WithBasePath(bp string) *GetGophersURL {
+func (o *GetGopherURL) WithBasePath(bp string) *GetGopherURL {
 	o.SetBasePath(bp)
 	return o
 }
@@ -27,24 +31,36 @@ func (o *GetGophersURL) WithBasePath(bp string) *GetGophersURL {
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetGophersURL) SetBasePath(bp string) {
+func (o *GetGopherURL) SetBasePath(bp string) {
 	o._basePath = bp
 }
 
 // Build a url path and query string
-func (o *GetGophersURL) Build() (*url.URL, error) {
+func (o *GetGopherURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/gophers"
+	var _path = "/gopher"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+
+	qs := make(url.Values)
+
+	var nameQ string
+	if o.Name != nil {
+		nameQ = *o.Name
+	}
+	if nameQ != "" {
+		qs.Set("name", nameQ)
+	}
+
+	_result.RawQuery = qs.Encode()
 
 	return &_result, nil
 }
 
 // Must is a helper function to panic when the url builder returns an error
-func (o *GetGophersURL) Must(u *url.URL, err error) *url.URL {
+func (o *GetGopherURL) Must(u *url.URL, err error) *url.URL {
 	if err != nil {
 		panic(err)
 	}
@@ -55,17 +71,17 @@ func (o *GetGophersURL) Must(u *url.URL, err error) *url.URL {
 }
 
 // String returns the string representation of the path with query string
-func (o *GetGophersURL) String() string {
+func (o *GetGopherURL) String() string {
 	return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
-func (o *GetGophersURL) BuildFull(scheme, host string) (*url.URL, error) {
+func (o *GetGopherURL) BuildFull(scheme, host string) (*url.URL, error) {
 	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on GetGophersURL")
+		return nil, errors.New("scheme is required for a full url on GetGopherURL")
 	}
 	if host == "" {
-		return nil, errors.New("host is required for a full url on GetGophersURL")
+		return nil, errors.New("host is required for a full url on GetGopherURL")
 	}
 
 	base, err := o.Build()
@@ -79,6 +95,6 @@ func (o *GetGophersURL) BuildFull(scheme, host string) (*url.URL, error) {
 }
 
 // StringFull returns the string representation of a complete url
-func (o *GetGophersURL) StringFull(scheme, host string) string {
+func (o *GetGopherURL) StringFull(scheme, host string) string {
 	return o.Must(o.BuildFull(scheme, host)).String()
 }

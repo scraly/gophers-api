@@ -28,12 +28,6 @@ paths:
       description: List Gophers
       produces:
        - application/json
-      parameters:
-        - name: name
-          in: query
-          type: string
-          required: false
-          description: Gopher name
       responses:
         200:
           description: Return the Gophers list.
@@ -67,6 +61,22 @@ paths:
       responses:
         200:
           description: Created
+          schema:
+            type: object
+            $ref: '#/definitions/Gopher'
+    get:
+      description: Get a gopher by a given name
+      produces:
+       - application/json
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: false
+          description: Gopher name
+      responses:
+        200:
+          description: A gopher
           schema:
             type: object
             $ref: '#/definitions/Gopher'

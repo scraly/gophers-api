@@ -35,6 +35,29 @@ func init() {
   },
   "paths": {
     "/gopher": {
+      "get": {
+        "description": "Get a gopher by a given name",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Gopher name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A gopher",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
+            }
+          }
+        }
+      },
       "post": {
         "consumes": [
           "application/json"
@@ -82,14 +105,6 @@ func init() {
         "description": "List Gophers",
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Gopher name",
-            "name": "name",
-            "in": "query"
-          }
         ],
         "responses": {
           "200": {
@@ -162,6 +177,29 @@ func init() {
   },
   "paths": {
     "/gopher": {
+      "get": {
+        "description": "Get a gopher by a given name",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Gopher name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A gopher",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
+            }
+          }
+        }
+      },
       "post": {
         "consumes": [
           "application/json"
@@ -209,14 +247,6 @@ func init() {
         "description": "List Gophers",
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Gopher name",
-            "name": "name",
-            "in": "query"
-          }
         ],
         "responses": {
           "200": {
