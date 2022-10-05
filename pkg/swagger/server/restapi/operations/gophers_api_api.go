@@ -40,16 +40,9 @@ func NewGophersAPIAPI(spec *loads.Document) *GophersAPIAPI {
 
 		JSONConsumer: runtime.JSONConsumer(),
 
-		BinProducer:  runtime.ByteStreamProducer(),
 		JSONProducer: runtime.JSONProducer(),
 		TxtProducer:  runtime.TextProducer(),
 
-		GetGopherNameHandler: GetGopherNameHandlerFunc(func(params GetGopherNameParams) middleware.Responder {
-			return middleware.NotImplemented("operation GetGopherName has not yet been implemented")
-		}),
-		GetGopherRandomHandler: GetGopherRandomHandlerFunc(func(params GetGopherRandomParams) middleware.Responder {
-			return middleware.NotImplemented("operation GetGopherRandom has not yet been implemented")
-		}),
 		GetGophersHandler: GetGophersHandlerFunc(func(params GetGophersParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetGophers has not yet been implemented")
 		}),
@@ -91,9 +84,6 @@ type GophersAPIAPI struct {
 	//   - application/json
 	JSONConsumer runtime.Consumer
 
-	// BinProducer registers a producer for the following mime types:
-	//   - image/png
-	BinProducer runtime.Producer
 	// JSONProducer registers a producer for the following mime types:
 	//   - application/json
 	JSONProducer runtime.Producer
@@ -101,10 +91,6 @@ type GophersAPIAPI struct {
 	//   - text/plain
 	TxtProducer runtime.Producer
 
-	// GetGopherNameHandler sets the operation handler for the get gopher name operation
-	GetGopherNameHandler GetGopherNameHandler
-	// GetGopherRandomHandler sets the operation handler for the get gopher random operation
-	GetGopherRandomHandler GetGopherRandomHandler
 	// GetGophersHandler sets the operation handler for the get gophers operation
 	GetGophersHandler GetGophersHandler
 	// PostGopherHandler sets the operation handler for the post gopher operation
@@ -184,9 +170,6 @@ func (o *GophersAPIAPI) Validate() error {
 		unregistered = append(unregistered, "JSONConsumer")
 	}
 
-	if o.BinProducer == nil {
-		unregistered = append(unregistered, "BinProducer")
-	}
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
 	}
@@ -194,12 +177,6 @@ func (o *GophersAPIAPI) Validate() error {
 		unregistered = append(unregistered, "TxtProducer")
 	}
 
-	if o.GetGopherNameHandler == nil {
-		unregistered = append(unregistered, "GetGopherNameHandler")
-	}
-	if o.GetGopherRandomHandler == nil {
-		unregistered = append(unregistered, "GetGopherRandomHandler")
-	}
 	if o.GetGophersHandler == nil {
 		unregistered = append(unregistered, "GetGophersHandler")
 	}
@@ -255,8 +232,6 @@ func (o *GophersAPIAPI) ProducersFor(mediaTypes []string) map[string]runtime.Pro
 	result := make(map[string]runtime.Producer, len(mediaTypes))
 	for _, mt := range mediaTypes {
 		switch mt {
-		case "image/png":
-			result["image/png"] = o.BinProducer
 		case "application/json":
 			result["application/json"] = o.JSONProducer
 		case "text/plain":
@@ -301,14 +276,6 @@ func (o *GophersAPIAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/gopher/{name}"] = NewGetGopherName(o.context, o.GetGopherNameHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/gopher/random"] = NewGetGopherRandom(o.context, o.GetGopherRandomHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

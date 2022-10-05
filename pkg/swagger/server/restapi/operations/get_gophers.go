@@ -32,7 +32,7 @@ func NewGetGophers(ctx *middleware.Context, handler GetGophersHandler) *GetGophe
 /*
 	GetGophers swagger:route GET /gophers getGophers
 
-List all the existing Gophers
+List Gophers
 */
 type GetGophers struct {
 	Context *middleware.Context

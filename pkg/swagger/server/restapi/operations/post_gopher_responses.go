@@ -9,29 +9,51 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
+	"github.com/scraly/gophers-api/pkg/swagger/server/models"
 )
 
-// PostGopherCreatedCode is the HTTP code returned for type PostGopherCreated
-const PostGopherCreatedCode int = 201
+// PostGopherOKCode is the HTTP code returned for type PostGopherOK
+const PostGopherOKCode int = 200
 
 /*
-PostGopherCreated Created
+PostGopherOK Created
 
-swagger:response postGopherCreated
+swagger:response postGopherOK
 */
-type PostGopherCreated struct {
+type PostGopherOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *models.Gopher `json:"body,omitempty"`
 }
 
-// NewPostGopherCreated creates PostGopherCreated with default headers values
-func NewPostGopherCreated() *PostGopherCreated {
+// NewPostGopherOK creates PostGopherOK with default headers values
+func NewPostGopherOK() *PostGopherOK {
 
-	return &PostGopherCreated{}
+	return &PostGopherOK{}
+}
+
+// WithPayload adds the payload to the post gopher o k response
+func (o *PostGopherOK) WithPayload(payload *models.Gopher) *PostGopherOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the post gopher o k response
+func (o *PostGopherOK) SetPayload(payload *models.Gopher) {
+	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *PostGopherCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *PostGopherOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
-
-	rw.WriteHeader(201)
+	rw.WriteHeader(200)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
 }

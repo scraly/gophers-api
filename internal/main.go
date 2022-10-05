@@ -97,13 +97,13 @@ func PostGopher(gopherParam operations.PostGopherParams) middleware.Responder {
 	path := gopherParam.Gopher.Path
 	url := gopherParam.Gopher.URL
 
-	gophers = append(gophers, gopher{*name, *path, *url})
+	//gophers = append(gophers, gopher{*name, *path, *url})
 
-	var gophersList []*models.Gopher
+	//var gophersList []*models.Gopher
 
-	gophersList = append(gophersList, &models.Gopher{Name: *name, Path: *path, URL: *url})
+	//gophersList = append(gophersList, &models.Gopher{Name: *name, Path: *path, URL: *url})
 
-	return operations.NewGetGophersOK().WithPayload(gophersList)
+	return operations.NewPostGopherOK().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
 
 //Helper function?

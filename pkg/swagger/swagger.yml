@@ -65,8 +65,11 @@ paths:
               url:
                 type: string
       responses:
-        201:
+        200:
           description: Created
+          schema:
+            type: object
+            $ref: '#/definitions/Gopher'
 
 definitions:
   Gopher:

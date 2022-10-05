@@ -11,6 +11,12 @@ This simple API handle a list of Gophers.
 Install Go in 1.16 version minimum.  
 Install [Taskfile](https://taskfile.dev/#/installation) (optional)
 
+```bash
+brew install go-task/tap/go-task
+brew tap go-swagger/go-swagger
+brew install go-swagger
+swagger version
+```
 
 ### Build 
 

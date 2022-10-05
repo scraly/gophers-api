@@ -67,76 +67,19 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/gopher/random": {
-      "get": {
-        "description": "Return a random Gopher Image",
-        "produces": [
-          "image/png"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Size for your Gopher ('x-small','small','medium')",
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
           "200": {
-            "description": "Returns a random gopher.",
+            "description": "Created",
             "schema": {
-              "type": "file"
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
             }
-          },
-          "400": {
-            "description": "there is something wrong in the path."
-          }
-        }
-      }
-    },
-    "/gopher/{name}": {
-      "get": {
-        "description": "Return the Gopher Image",
-        "produces": [
-          "image/png"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "The name of the Gopher to display.",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Size for your Gopher",
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the gopher.",
-            "schema": {
-              "type": "file"
-            }
-          },
-          "400": {
-            "description": "Invalid characters in \"name\" were provided."
           }
         }
       }
     },
     "/gophers": {
       "get": {
-        "description": "List all the existing Gophers",
+        "description": "List Gophers",
         "produces": [
           "application/json"
         ],
@@ -251,76 +194,19 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/gopher/random": {
-      "get": {
-        "description": "Return a random Gopher Image",
-        "produces": [
-          "image/png"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Size for your Gopher ('x-small','small','medium')",
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
           "200": {
-            "description": "Returns a random gopher.",
+            "description": "Created",
             "schema": {
-              "type": "file"
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
             }
-          },
-          "400": {
-            "description": "there is something wrong in the path."
-          }
-        }
-      }
-    },
-    "/gopher/{name}": {
-      "get": {
-        "description": "Return the Gopher Image",
-        "produces": [
-          "image/png"
-        ],
-        "parameters": [
-          {
-            "type": "string",
-            "description": "The name of the Gopher to display.",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Size for your Gopher",
-            "name": "size",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the gopher.",
-            "schema": {
-              "type": "file"
-            }
-          },
-          "400": {
-            "description": "Invalid characters in \"name\" were provided."
           }
         }
       }
     },
     "/gophers": {
       "get": {
-        "description": "List all the existing Gophers",
+        "description": "List Gophers",
         "produces": [
           "application/json"
         ],

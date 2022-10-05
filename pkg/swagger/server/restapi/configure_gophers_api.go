@@ -35,20 +35,9 @@ func configureAPI(api *operations.GophersAPIAPI) http.Handler {
 
 	api.JSONConsumer = runtime.JSONConsumer()
 
-	api.BinProducer = runtime.ByteStreamProducer()
 	api.JSONProducer = runtime.JSONProducer()
 	api.TxtProducer = runtime.TextProducer()
 
-	if api.GetGopherNameHandler == nil {
-		api.GetGopherNameHandler = operations.GetGopherNameHandlerFunc(func(params operations.GetGopherNameParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetGopherName has not yet been implemented")
-		})
-	}
-	if api.GetGopherRandomHandler == nil {
-		api.GetGopherRandomHandler = operations.GetGopherRandomHandlerFunc(func(params operations.GetGopherRandomParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetGopherRandom has not yet been implemented")
-		})
-	}
 	if api.GetGophersHandler == nil {
 		api.GetGophersHandler = operations.GetGophersHandlerFunc(func(params operations.GetGophersParams) middleware.Responder {
 			return middleware.NotImplemented("operation operations.GetGophers has not yet been implemented")
