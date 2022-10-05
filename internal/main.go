@@ -68,11 +68,13 @@ var gophers = allGophers{
 
 // Health route returns OK
 func Health(operations.CheckHealthParams) middleware.Responder {
+	fmt.Println("Called Health method")
 	return operations.NewCheckHealthOK().WithPayload("OK")
 }
 
 // Returns a a list of Gophers
 func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
+	fmt.Println("Called GetGophers method")
 
 	var gophersList []*models.Gopher
 
@@ -86,6 +88,7 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 
 // Returns an object of type Gopher with a given name
 func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responder {
+	fmt.Println("Called GetGopherByName method")
 
 	for _, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
@@ -105,6 +108,7 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 
 // Add a new Gopher
 func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder {
+	fmt.Println("Called CreateGopher method")
 
 	name := gopherParam.Gopher.Name
 	path := gopherParam.Gopher.Path
