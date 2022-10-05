@@ -72,6 +72,8 @@ Response:
 {"name":"5th-element","path":"5th-element.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"}
 ```
 
+/!\ Returns a 404 HTTP Error Code if a Gopher have not been found for the given name.
+
 * Add a new Gopher
 
 ```

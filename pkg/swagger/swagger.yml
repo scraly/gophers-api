@@ -72,7 +72,7 @@ paths:
         - name: name
           in: query
           type: string
-          required: false
+          required: true
           description: Gopher name
       responses:
         200:
@@ -80,6 +80,8 @@ paths:
           schema:
             type: object
             $ref: '#/definitions/Gopher'
+        404:
+          description: A gopher with the specified Name was not found.
 
 definitions:
   Gopher:

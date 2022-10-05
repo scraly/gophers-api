@@ -57,3 +57,28 @@ func (o *GetGopherOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pro
 		}
 	}
 }
+
+// GetGopherNotFoundCode is the HTTP code returned for type GetGopherNotFound
+const GetGopherNotFoundCode int = 404
+
+/*
+GetGopherNotFound A gopher with the specified Name was not found.
+
+swagger:response getGopherNotFound
+*/
+type GetGopherNotFound struct {
+}
+
+// NewGetGopherNotFound creates GetGopherNotFound with default headers values
+func NewGetGopherNotFound() *GetGopherNotFound {
+
+	return &GetGopherNotFound{}
+}
+
+// WriteResponse to the client
+func (o *GetGopherNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(404)
+}

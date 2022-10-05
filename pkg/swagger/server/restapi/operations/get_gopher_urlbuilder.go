@@ -13,7 +13,7 @@ import (
 
 // GetGopherURL generates an URL for the get gopher operation
 type GetGopherURL struct {
-	Name *string
+	Name string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -46,10 +46,7 @@ func (o *GetGopherURL) Build() (*url.URL, error) {
 
 	qs := make(url.Values)
 
-	var nameQ string
-	if o.Name != nil {
-		nameQ = *o.Name
-	}
+	nameQ := o.Name
 	if nameQ != "" {
 		qs.Set("name", nameQ)
 	}

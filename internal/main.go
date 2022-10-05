@@ -87,23 +87,20 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 // Returns an object of type Gopher with a given name
 func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responder {
 
-	if gopherParam.Name != nil {
+	for _, myGopher := range gophers {
+		if myGopher.Name == gopherParam.Name {
+			fmt.Println("name", gopherParam.Name, "name found in DB", myGopher.Name)
 
-		for _, myGopher := range gophers {
-			if myGopher.Name == *gopherParam.Name {
-				fmt.Println("name", *gopherParam.Name, "name found in DB", myGopher.Name)
-
-				return operations.NewGetGopherOK().WithPayload(
-					&models.Gopher{
-						Name: myGopher.Name,
-						Path: myGopher.Path,
-						URL:  myGopher.URL})
-			}
+			return operations.NewGetGopherOK().WithPayload(
+				&models.Gopher{
+					Name: myGopher.Name,
+					Path: myGopher.Path,
+					URL:  myGopher.URL})
 		}
 	}
 
-	//If gopher does not exists, we return an empty object
-	return operations.NewGetGopherOK().WithPayload(&models.Gopher{})
+	//If gopher have not been found, returns a 404 HTTP Error Code
+	return operations.NewGetGopherNotFound()
 }
 
 // Add a new Gopher

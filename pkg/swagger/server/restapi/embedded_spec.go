@@ -45,7 +45,8 @@ func init() {
             "type": "string",
             "description": "Gopher name",
             "name": "name",
-            "in": "query"
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -55,6 +56,9 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/Gopher"
             }
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
           }
         }
       },
@@ -187,7 +191,8 @@ func init() {
             "type": "string",
             "description": "Gopher name",
             "name": "name",
-            "in": "query"
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -197,6 +202,9 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/Gopher"
             }
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
           }
         }
       },
