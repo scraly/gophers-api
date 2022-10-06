@@ -58,6 +58,11 @@ func configureAPI(api *operations.GophersAPIAPI) http.Handler {
 			return middleware.NotImplemented("operation operations.PostGopher has not yet been implemented")
 		})
 	}
+	if api.PutGopherHandler == nil {
+		api.PutGopherHandler = operations.PutGopherHandlerFunc(func(params operations.PutGopherParams) middleware.Responder {
+			return middleware.NotImplemented("operation operations.PutGopher has not yet been implemented")
+		})
+	}
 	if api.CheckHealthHandler == nil {
 		api.CheckHealthHandler = operations.CheckHealthHandlerFunc(func(params operations.CheckHealthParams) middleware.Responder {
 			return middleware.NotImplemented("operation operations.CheckHealth has not yet been implemented")

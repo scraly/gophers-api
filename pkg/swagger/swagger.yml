@@ -95,6 +95,34 @@ paths:
           description: OK
         404:
           description: A gopher with the specified Name was not found.
+    put:
+      description: Update a gopher
+      parameters:
+        - in: body
+          name: gopher
+          description: The Gopher to create.
+          schema:
+            type: object
+            required:
+              - name
+              - path
+              - url
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+              url:
+                type: string
+      responses:
+        200:
+          description: Updated
+          schema:
+            type: object
+            $ref: '#/definitions/Gopher'
+        404:
+          description: A gopher with the specified Name was not found.
+
 
 definitions:
   Gopher:

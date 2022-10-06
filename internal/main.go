@@ -42,7 +42,7 @@ func main() {
 
 	api.DeleteGopherHandler = operations.DeleteGopherHandlerFunc(DeleteGopher)
 
-	//TODO: UpdateGopher/PUSH
+	api.PutGopherHandler = operations.PutGopherHandlerFunc(UpdateGopher)
 
 	// Start server which listening
 	if err := server.Serve(); err != nil {
@@ -130,7 +130,7 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
 
-// TODO: Delete a Gopher with a given name
+// Delete a Gopher with a given name
 func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responder {
 	fmt.Println("[DeleteGopher] Call method")
 
@@ -152,7 +152,30 @@ func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responde
 	return operations.NewDeleteGopherNotFound()
 }
 
-//TODO: Update
+// Update the path and the URL of an existing Gopher
+func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
+	fmt.Println("[UpdateGopher] Call method")
+
+	fmt.Println("Updating", *gopherParam.Gopher.Name, "with new values")
+
+	for i := range gophers {
+		if gophers[i].Name == *gopherParam.Gopher.Name {
+			gophers[i].Path = *gopherParam.Gopher.Path
+			gophers[i].URL = *gopherParam.Gopher.URL
+
+			fmt.Println("Gopher updated!")
+
+			return operations.NewPostGopherCreated().WithPayload(&models.Gopher{
+				Name: *gopherParam.Gopher.Name,
+				Path: *gopherParam.Gopher.Path,
+				URL:  *gopherParam.Gopher.URL})
+		}
+	}
+
+	fmt.Println("[UpdateGopher] End of the method")
+
+	return operations.NewPutGopherOK()
+}
 
 //TODO: Create Helper function in order to create a JSON with full existing Gophers in github.com/scraly/gophers
 // /*

@@ -99,6 +99,20 @@ Response:
 curl -X DELETE localhost:8080/gopher?name=5th-element
 ```
 
+* Update a Gopher
+
+```bash
+curl -X PUT localhost:8080/gopher \
+   -H "Content-Type: application/json" \
+   -d '{"name":"yoda-gopher","path":"yoda-gopher.pngg","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}' 
+```
+
+Response:
+
+```bash
+{"name":"yoda-gopher","path":"yoda-gopher.pngg","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
+```
+
 ## Notes
 
 This API use [go-swagger](https://goswagger.io/install.html)

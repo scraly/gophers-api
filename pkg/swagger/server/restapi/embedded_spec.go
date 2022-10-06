@@ -62,6 +62,47 @@ func init() {
           }
         }
       },
+      "put": {
+        "description": "Update a gopher",
+        "parameters": [
+          {
+            "description": "The Gopher to create.",
+            "name": "gopher",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "path",
+                "url"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
+            }
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
+          }
+        }
+      },
       "post": {
         "consumes": [
           "application/json"
@@ -218,6 +259,47 @@ func init() {
         "responses": {
           "200": {
             "description": "A gopher",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Gopher"
+            }
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
+          }
+        }
+      },
+      "put": {
+        "description": "Update a gopher",
+        "parameters": [
+          {
+            "description": "The Gopher to create.",
+            "name": "gopher",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "path",
+                "url"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
             "schema": {
               "type": "object",
               "$ref": "#/definitions/Gopher"

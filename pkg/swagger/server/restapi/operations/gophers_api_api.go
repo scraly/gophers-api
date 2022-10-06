@@ -55,6 +55,9 @@ func NewGophersAPIAPI(spec *loads.Document) *GophersAPIAPI {
 		PostGopherHandler: PostGopherHandlerFunc(func(params PostGopherParams) middleware.Responder {
 			return middleware.NotImplemented("operation PostGopher has not yet been implemented")
 		}),
+		PutGopherHandler: PutGopherHandlerFunc(func(params PutGopherParams) middleware.Responder {
+			return middleware.NotImplemented("operation PutGopher has not yet been implemented")
+		}),
 		CheckHealthHandler: CheckHealthHandlerFunc(func(params CheckHealthParams) middleware.Responder {
 			return middleware.NotImplemented("operation CheckHealth has not yet been implemented")
 		}),
@@ -105,6 +108,8 @@ type GophersAPIAPI struct {
 	GetGophersHandler GetGophersHandler
 	// PostGopherHandler sets the operation handler for the post gopher operation
 	PostGopherHandler PostGopherHandler
+	// PutGopherHandler sets the operation handler for the put gopher operation
+	PutGopherHandler PutGopherHandler
 	// CheckHealthHandler sets the operation handler for the check health operation
 	CheckHealthHandler CheckHealthHandler
 
@@ -198,6 +203,9 @@ func (o *GophersAPIAPI) Validate() error {
 	}
 	if o.PostGopherHandler == nil {
 		unregistered = append(unregistered, "PostGopherHandler")
+	}
+	if o.PutGopherHandler == nil {
+		unregistered = append(unregistered, "PutGopherHandler")
 	}
 	if o.CheckHealthHandler == nil {
 		unregistered = append(unregistered, "CheckHealthHandler")
@@ -308,6 +316,10 @@ func (o *GophersAPIAPI) initHandlerCache() {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
 	o.handlers["POST"]["/gopher"] = NewPostGopher(o.context, o.PostGopherHandler)
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/gopher"] = NewPutGopher(o.context, o.PutGopherHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
