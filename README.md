@@ -1,6 +1,12 @@
 # gophers-api
 
 This simple API handle a list of Gophers.
+It alllows to:
+- list the existing Gophers
+- display the information about a Gopher
+- create a new Gopher
+- delete a Gopher
+- update the path and the URL of a Gopher
 
 <img src="https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png" alt="yoda-gopher.png" width="300"/> <img src="https://raw.githubusercontent.com/scraly/gophers/main/back-to-the-future-v2.png" alt="back-to-the-future-v2.png" width="300"/>
 
