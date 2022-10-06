@@ -6,13 +6,18 @@ This simple API handle a list of Gophers.
 
 ## How to install 
 
-### prerequisites
+### Prerequisites
 
 Install Go in 1.16 version minimum.  
-Install [Taskfile](https://taskfile.dev/#/installation) (optional)
+Install [Taskfile](https://taskfile.dev/#/installation) (optional):
 
 ```bash
 brew install go-task/tap/go-task
+```
+
+Install go-swagger:
+
+```bash
 brew tap go-swagger/go-swagger
 brew install go-swagger
 swagger version

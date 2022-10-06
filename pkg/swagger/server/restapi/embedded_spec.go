@@ -94,7 +94,7 @@ func init() {
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Created",
             "schema": {
               "type": "object",
@@ -240,7 +240,7 @@ func init() {
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Created",
             "schema": {
               "type": "object",

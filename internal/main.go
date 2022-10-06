@@ -127,10 +127,10 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 
 	fmt.Println("[CreateGopher] End of the method")
 
-	return operations.NewPostGopherOK().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
+	return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
 
-//Helper function?
+//TODO: Create Helper function in order to create a JSON with full existing Gophers in github.com/scraly/gophers
 // /*
 // *
 // Get Gophers List from Scraly repository

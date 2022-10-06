@@ -13,15 +13,15 @@ import (
 	"github.com/scraly/gophers-api/pkg/swagger/server/models"
 )
 
-// PostGopherOKCode is the HTTP code returned for type PostGopherOK
-const PostGopherOKCode int = 200
+// PostGopherCreatedCode is the HTTP code returned for type PostGopherCreated
+const PostGopherCreatedCode int = 201
 
 /*
-PostGopherOK Created
+PostGopherCreated Created
 
-swagger:response postGopherOK
+swagger:response postGopherCreated
 */
-type PostGopherOK struct {
+type PostGopherCreated struct {
 
 	/*
 	  In: Body
@@ -29,27 +29,27 @@ type PostGopherOK struct {
 	Payload *models.Gopher `json:"body,omitempty"`
 }
 
-// NewPostGopherOK creates PostGopherOK with default headers values
-func NewPostGopherOK() *PostGopherOK {
+// NewPostGopherCreated creates PostGopherCreated with default headers values
+func NewPostGopherCreated() *PostGopherCreated {
 
-	return &PostGopherOK{}
+	return &PostGopherCreated{}
 }
 
-// WithPayload adds the payload to the post gopher o k response
-func (o *PostGopherOK) WithPayload(payload *models.Gopher) *PostGopherOK {
+// WithPayload adds the payload to the post gopher created response
+func (o *PostGopherCreated) WithPayload(payload *models.Gopher) *PostGopherCreated {
 	o.Payload = payload
 	return o
 }
 
-// SetPayload sets the payload to the post gopher o k response
-func (o *PostGopherOK) SetPayload(payload *models.Gopher) {
+// SetPayload sets the payload to the post gopher created response
+func (o *PostGopherCreated) SetPayload(payload *models.Gopher) {
 	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *PostGopherOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *PostGopherCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
+	rw.WriteHeader(201)
 	if o.Payload != nil {
 		payload := o.Payload
 		if err := producer.Produce(rw, payload); err != nil {
