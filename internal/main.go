@@ -68,13 +68,13 @@ var gophers = allGophers{
 
 // Health route returns OK
 func Health(operations.CheckHealthParams) middleware.Responder {
-	fmt.Println("Called Health method")
+	fmt.Println("[Health] Call method")
 	return operations.NewCheckHealthOK().WithPayload("OK")
 }
 
 // Returns a a list of Gophers
 func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
-	fmt.Println("Called GetGophers method")
+	fmt.Println("[GetGophers] Call method")
 
 	var gophersList []*models.Gopher
 
@@ -83,12 +83,14 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
 	}
 
+	fmt.Println("[GetGophers] End of the method")
+
 	return operations.NewGetGophersOK().WithPayload(gophersList)
 }
 
 // Returns an object of type Gopher with a given name
 func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responder {
-	fmt.Println("Called GetGopherByName method")
+	fmt.Println("[GetGopherByName] Call method")
 
 	for _, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
@@ -102,13 +104,15 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 		}
 	}
 
+	fmt.Println("[GetGopherByName] End of the method")
+
 	//If gopher have not been found, returns a 404 HTTP Error Code
 	return operations.NewGetGopherNotFound()
 }
 
 // Add a new Gopher
 func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder {
-	fmt.Println("Called CreateGopher method")
+	fmt.Println("[CreateGopher] Call method")
 
 	name := gopherParam.Gopher.Name
 	path := gopherParam.Gopher.Path
@@ -120,6 +124,9 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	gophers = append(gophers, gopher{*name, *path, *url})
 
 	fmt.Println("Gopher", *name, "created!")
+
+	fmt.Println("[CreateGopher] End of the method")
+
 	return operations.NewPostGopherOK().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
 
