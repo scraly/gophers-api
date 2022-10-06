@@ -102,6 +102,26 @@ func init() {
             }
           }
         }
+      },
+      "delete": {
+        "description": "Delete a gopher by a given name",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Gopher name",
+            "name": "name",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
+          }
+        }
       }
     },
     "/gophers": {
@@ -246,6 +266,26 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/Gopher"
             }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a gopher by a given name",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Gopher name",
+            "name": "name",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "A gopher with the specified Name was not found."
           }
         }
       }

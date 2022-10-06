@@ -43,6 +43,9 @@ func NewGophersAPIAPI(spec *loads.Document) *GophersAPIAPI {
 		JSONProducer: runtime.JSONProducer(),
 		TxtProducer:  runtime.TextProducer(),
 
+		DeleteGopherHandler: DeleteGopherHandlerFunc(func(params DeleteGopherParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeleteGopher has not yet been implemented")
+		}),
 		GetGopherHandler: GetGopherHandlerFunc(func(params GetGopherParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetGopher has not yet been implemented")
 		}),
@@ -94,6 +97,8 @@ type GophersAPIAPI struct {
 	//   - text/plain
 	TxtProducer runtime.Producer
 
+	// DeleteGopherHandler sets the operation handler for the delete gopher operation
+	DeleteGopherHandler DeleteGopherHandler
 	// GetGopherHandler sets the operation handler for the get gopher operation
 	GetGopherHandler GetGopherHandler
 	// GetGophersHandler sets the operation handler for the get gophers operation
@@ -182,6 +187,9 @@ func (o *GophersAPIAPI) Validate() error {
 		unregistered = append(unregistered, "TxtProducer")
 	}
 
+	if o.DeleteGopherHandler == nil {
+		unregistered = append(unregistered, "DeleteGopherHandler")
+	}
 	if o.GetGopherHandler == nil {
 		unregistered = append(unregistered, "GetGopherHandler")
 	}
@@ -284,6 +292,10 @@ func (o *GophersAPIAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/gopher"] = NewDeleteGopher(o.context, o.DeleteGopherHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

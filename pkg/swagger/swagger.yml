@@ -82,6 +82,19 @@ paths:
             $ref: '#/definitions/Gopher'
         404:
           description: A gopher with the specified Name was not found.
+    delete:
+      description: Delete a gopher by a given name
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: Gopher name
+      responses:
+        200:
+          description: OK
+        404:
+          description: A gopher with the specified Name was not found.
 
 definitions:
   Gopher:

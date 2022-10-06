@@ -40,9 +40,9 @@ func main() {
 
 	api.PostGopherHandler = operations.PostGopherHandlerFunc(CreateGopher)
 
-	//TODO: DeleteGopher
+	api.DeleteGopherHandler = operations.DeleteGopherHandlerFunc(DeleteGopher)
 
-	//TODO: UpdateGopher
+	//TODO: UpdateGopher/PUSH
 
 	// Start server which listening
 	if err := server.Serve(); err != nil {
@@ -94,7 +94,7 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 
 	for _, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
-			fmt.Println("name", gopherParam.Name, "name found in DB")
+			fmt.Println("Gopher", gopherParam.Name, "found in DB")
 
 			return operations.NewGetGopherOK().WithPayload(
 				&models.Gopher{
@@ -129,6 +129,30 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 
 	return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
 }
+
+// TODO: Delete a Gopher with a given name
+func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responder {
+	fmt.Println("[DeleteGopher] Call method")
+
+	for i, myGopher := range gophers {
+		if myGopher.Name == gopherParam.Name {
+			fmt.Println("Gopher", gopherParam.Name, "found in DB, try to delete it")
+
+			gophers = append(gophers[:i], gophers[i+1:]...)
+
+			fmt.Println("Gopher", gopherParam.Name, "deleted!")
+
+			return operations.NewDeleteGopherOK()
+		}
+	}
+
+	fmt.Println("[DeleteGopher] End of the method")
+
+	//If gopher have not been found, returns a 404 HTTP Error Code
+	return operations.NewDeleteGopherNotFound()
+}
+
+//TODO: Update
 
 //TODO: Create Helper function in order to create a JSON with full existing Gophers in github.com/scraly/gophers
 // /*

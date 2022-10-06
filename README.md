@@ -26,21 +26,21 @@ swagger version
 ### Build 
 
 ``` 
-$ go build -o bin/gophers-api internal/main.go
+go build -o bin/gophers-api internal/main.go
 
 // or 
 
-$ task build
+task build
 ```
 
 ### Run app 
 
 ``` 
-$ go run internal/main.go
+go run internal/main.go
 
 // or 
 
-$ task run
+task run
 ```
 
 ### Serve Swagger UI 
@@ -48,7 +48,7 @@ $ task run
 This will open you browser on Swagger UI
 
 ``` 
-$ task swagger:serve
+task swagger:serve
 ```
 
 ### Test the API
@@ -56,7 +56,7 @@ $ task swagger:serve
 * Get all Gophers:
 
 ```bash
-$ curl localhost:8080/gophers
+curl localhost:8080/gophers
 ```
 
 Response:
@@ -68,7 +68,7 @@ Response:
 * Get a Gopher with the input name
 
 ```bash
-$ curl localhost:8080/gopher?name=5th-element
+curl localhost:8080/gopher?name=5th-element
 ```
 
 Response:
@@ -82,7 +82,7 @@ Response:
 * Add a new Gopher
 
 ```
-$ curl -X POST localhost:8080/gopher \
+curl -X POST localhost:8080/gopher \
    -H "Content-Type: application/json" \
    -d '{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
 ```
@@ -91,6 +91,12 @@ Response:
 
 ```bash
 {"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
+```
+
+* Delete a Gopher
+
+```bash
+curl -X DELETE localhost:8080/gopher?name=5th-element
 ```
 
 ## Notes
