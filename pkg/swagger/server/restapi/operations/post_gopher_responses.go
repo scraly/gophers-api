@@ -57,3 +57,28 @@ func (o *PostGopherCreated) WriteResponse(rw http.ResponseWriter, producer runti
 		}
 	}
 }
+
+// PostGopherConflictCode is the HTTP code returned for type PostGopherConflict
+const PostGopherConflictCode int = 409
+
+/*
+PostGopherConflict Gopher already exists
+
+swagger:response postGopherConflict
+*/
+type PostGopherConflict struct {
+}
+
+// NewPostGopherConflict creates PostGopherConflict with default headers values
+func NewPostGopherConflict() *PostGopherConflict {
+
+	return &PostGopherConflict{}
+}
+
+// WriteResponse to the client
+func (o *PostGopherConflict) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(409)
+}

@@ -64,6 +64,8 @@ paths:
           schema:
             type: object
             $ref: '#/definitions/Gopher'
+        409:
+          description: Gopher already exists
     get:
       description: Get a gopher by a given name
       produces:
@@ -100,7 +102,7 @@ paths:
       parameters:
         - in: body
           name: gopher
-          description: The Gopher to create.
+          description: The Gopher to update.
           schema:
             type: object
             required:
@@ -122,7 +124,6 @@ paths:
             $ref: '#/definitions/Gopher'
         404:
           description: A gopher with the specified Name was not found.
-
 
 definitions:
   Gopher:

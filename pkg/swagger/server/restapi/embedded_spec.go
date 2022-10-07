@@ -66,7 +66,7 @@ func init() {
         "description": "Update a gopher",
         "parameters": [
           {
-            "description": "The Gopher to create.",
+            "description": "The Gopher to update.",
             "name": "gopher",
             "in": "body",
             "schema": {
@@ -141,6 +141,9 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/Gopher"
             }
+          },
+          "409": {
+            "description": "Gopher already exists"
           }
         }
       },
@@ -273,7 +276,7 @@ func init() {
         "description": "Update a gopher",
         "parameters": [
           {
-            "description": "The Gopher to create.",
+            "description": "The Gopher to update.",
             "name": "gopher",
             "in": "body",
             "schema": {
@@ -348,6 +351,9 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/Gopher"
             }
+          },
+          "409": {
+            "description": "Gopher already exists"
           }
         }
       },

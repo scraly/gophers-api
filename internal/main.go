@@ -110,6 +110,16 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 	return operations.NewGetGopherNotFound()
 }
 
+func gopherExists(gopherName string) bool {
+	for _, myGopher := range gophers {
+		if myGopher.Name == gopherName {
+			return true
+		}
+	}
+
+	return false
+}
+
 // Add a new Gopher
 func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder {
 	fmt.Println("[CreateGopher] Call method")
@@ -118,16 +128,17 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	path := gopherParam.Gopher.Path
 	url := gopherParam.Gopher.URL
 
-	// Add new gopher in the list of existing Gophers
+	// Check if a gopher not alreayd exists
+	if !gopherExists(*name) {
+		// Add new gopher in the list of existing Gophers
+		gophers = append(gophers, gopher{*name, *path, *url})
 
-	//TODO: checker si un gopher n'existe pas deja avec le meme name (unicité du name!)
-	gophers = append(gophers, gopher{*name, *path, *url})
+		fmt.Println("Gopher", *name, "created!")
 
-	fmt.Println("Gopher", *name, "created!")
-
-	fmt.Println("[CreateGopher] End of the method")
-
-	return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
+		return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
+	} else {
+		return operations.NewPostGopherConflict()
+	}
 }
 
 // Delete a Gopher with a given name

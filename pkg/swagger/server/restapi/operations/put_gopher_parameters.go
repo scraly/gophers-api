@@ -31,7 +31,7 @@ type PutGopherParams struct {
 	// HTTP Request Object
 	HTTPRequest *http.Request `json:"-"`
 
-	/*The Gopher to create.
+	/*The Gopher to update.
 	  In: body
 	*/
 	Gopher PutGopherBody
