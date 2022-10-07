@@ -54,7 +54,7 @@ task run
 This will open you browser on Swagger UI
 
 ``` 
-task swagger:serve
+task swagger.serve
 ```
 
 ### Test the API

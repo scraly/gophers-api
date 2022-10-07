@@ -83,8 +83,6 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
 	}
 
-	fmt.Println("[GetGophers] End of the method")
-
 	return operations.NewGetGophersOK().WithPayload(gophersList)
 }
 
@@ -104,10 +102,19 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 		}
 	}
 
-	fmt.Println("[GetGopherByName] End of the method")
-
 	//If gopher have not been found, returns a 404 HTTP Error Code
 	return operations.NewGetGopherNotFound()
+}
+
+// TODO: to finish
+func getGopher(gopherName string) gopher {
+	for _, myGopher := range gophers {
+		if myGopher.Name == gopherName {
+			return myGopher
+		}
+	}
+
+	return gopher{}
 }
 
 func gopherExists(gopherName string) bool {
@@ -128,7 +135,9 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	path := gopherParam.Gopher.Path
 	url := gopherParam.Gopher.URL
 
-	// Check if a gopher not alreayd exists
+	fmt.Println("Try to create a Gopher with the parameters:", *name, *path, *url)
+
+	// Check if a gopher not already exists
 	if !gopherExists(*name) {
 		// Add new gopher in the list of existing Gophers
 		gophers = append(gophers, gopher{*name, *path, *url})
