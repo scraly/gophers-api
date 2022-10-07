@@ -1,5 +1,4 @@
-ARG GITPOD_IMAGE=gitpod/workspace-base:latest
-FROM ${GITPOD_IMAGE}
+FROM gitpod/workspace-full:latest
 
 RUN brew install go-task/tap/go-task
 
