@@ -10,6 +10,10 @@ It alllows to:
 
 <img src="https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png" alt="yoda-gopher.png" width="300"/> <img src="https://raw.githubusercontent.com/scraly/gophers/main/back-to-the-future-v2.png" alt="back-to-the-future-v2.png" width="300"/>
 
+## Gitpod integration
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com//scraly/gophers-api.git)
+
 ## How to install 
 
 ### Prerequisites
