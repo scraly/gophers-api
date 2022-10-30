@@ -12,7 +12,7 @@ It alllows to:
 
 ## Gitpod integration
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com//scraly/gophers-api.git)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scraly/gophers-api.git)
 
 ## How to install 
 
