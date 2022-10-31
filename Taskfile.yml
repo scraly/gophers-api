@@ -30,4 +30,4 @@ tasks:
         desc: Serve swagger UI
         cmds:
         - cmd: |
-            swagger serve -F swagger ./pkg/swagger/swagger.yml
+            swagger serve -F swagger ./pkg/swagger/swagger.yml --no-open
