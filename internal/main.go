@@ -69,7 +69,9 @@ var gophers = allGophers{
 // Health route returns OK
 func Health(operations.CheckHealthParams) middleware.Responder {
 	fmt.Println("[Health] Call method")
-	return operations.NewCheckHealthOK().WithPayload("OK")
+	return operations.NewCheckHealthOK().
+		WithPayload("OK").
+		WithAccessControlAllowOrigin("*")
 }
 
 // Returns a a list of Gophers
@@ -83,7 +85,9 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
 	}
 
-	return operations.NewGetGophersOK().WithPayload(gophersList)
+	return operations.NewGetGophersOK().
+		WithPayload(gophersList).
+		WithAccessControlAllowOrigin("*")
 }
 
 // Returns an object of type Gopher with a given name
@@ -98,12 +102,15 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 				&models.Gopher{
 					Name: myGopher.Name,
 					Path: myGopher.Path,
-					URL:  myGopher.URL})
+					URL:  myGopher.URL}).
+				WithAccessControlAllowOrigin("*")
 		}
 	}
 
 	//If gopher have not been found, returns a 404 HTTP Error Code
-	return operations.NewGetGopherNotFound()
+	return operations.
+		NewGetGopherNotFound().
+		WithAccessControlAllowOrigin("*")
 }
 
 // TODO: to finish

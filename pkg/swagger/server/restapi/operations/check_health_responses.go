@@ -20,6 +20,10 @@ CheckHealthOK OK message.
 swagger:response checkHealthOK
 */
 type CheckHealthOK struct {
+	/*
+
+	 */
+	AccessControlAllowOrigin string `json:"Access-Control-Allow-Origin"`
 
 	/*
 	  In: Body
@@ -31,6 +35,17 @@ type CheckHealthOK struct {
 func NewCheckHealthOK() *CheckHealthOK {
 
 	return &CheckHealthOK{}
+}
+
+// WithAccessControlAllowOrigin adds the accessControlAllowOrigin to the check health o k response
+func (o *CheckHealthOK) WithAccessControlAllowOrigin(accessControlAllowOrigin string) *CheckHealthOK {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
+	return o
+}
+
+// SetAccessControlAllowOrigin sets the accessControlAllowOrigin to the check health o k response
+func (o *CheckHealthOK) SetAccessControlAllowOrigin(accessControlAllowOrigin string) {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
 }
 
 // WithPayload adds the payload to the check health o k response
@@ -46,6 +61,13 @@ func (o *CheckHealthOK) SetPayload(payload string) {
 
 // WriteResponse to the client
 func (o *CheckHealthOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	// response header Access-Control-Allow-Origin
+
+	accessControlAllowOrigin := o.AccessControlAllowOrigin
+	if accessControlAllowOrigin != "" {
+		rw.Header().Set("Access-Control-Allow-Origin", accessControlAllowOrigin)
+	}
 
 	rw.WriteHeader(200)
 	payload := o.Payload

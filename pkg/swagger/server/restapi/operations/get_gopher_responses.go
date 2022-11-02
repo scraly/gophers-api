@@ -22,6 +22,10 @@ GetGopherOK A gopher
 swagger:response getGopherOK
 */
 type GetGopherOK struct {
+	/*
+
+	 */
+	AccessControlAllowOrigin string `json:"Access-Control-Allow-Origin"`
 
 	/*
 	  In: Body
@@ -33,6 +37,17 @@ type GetGopherOK struct {
 func NewGetGopherOK() *GetGopherOK {
 
 	return &GetGopherOK{}
+}
+
+// WithAccessControlAllowOrigin adds the accessControlAllowOrigin to the get gopher o k response
+func (o *GetGopherOK) WithAccessControlAllowOrigin(accessControlAllowOrigin string) *GetGopherOK {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
+	return o
+}
+
+// SetAccessControlAllowOrigin sets the accessControlAllowOrigin to the get gopher o k response
+func (o *GetGopherOK) SetAccessControlAllowOrigin(accessControlAllowOrigin string) {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
 }
 
 // WithPayload adds the payload to the get gopher o k response
@@ -48,6 +63,13 @@ func (o *GetGopherOK) SetPayload(payload *models.Gopher) {
 
 // WriteResponse to the client
 func (o *GetGopherOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	// response header Access-Control-Allow-Origin
+
+	accessControlAllowOrigin := o.AccessControlAllowOrigin
+	if accessControlAllowOrigin != "" {
+		rw.Header().Set("Access-Control-Allow-Origin", accessControlAllowOrigin)
+	}
 
 	rw.WriteHeader(200)
 	if o.Payload != nil {
@@ -67,6 +89,10 @@ GetGopherNotFound A gopher with the specified Name was not found.
 swagger:response getGopherNotFound
 */
 type GetGopherNotFound struct {
+	/*
+
+	 */
+	AccessControlAllowOrigin string `json:"Access-Control-Allow-Origin"`
 }
 
 // NewGetGopherNotFound creates GetGopherNotFound with default headers values
@@ -75,8 +101,26 @@ func NewGetGopherNotFound() *GetGopherNotFound {
 	return &GetGopherNotFound{}
 }
 
+// WithAccessControlAllowOrigin adds the accessControlAllowOrigin to the get gopher not found response
+func (o *GetGopherNotFound) WithAccessControlAllowOrigin(accessControlAllowOrigin string) *GetGopherNotFound {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
+	return o
+}
+
+// SetAccessControlAllowOrigin sets the accessControlAllowOrigin to the get gopher not found response
+func (o *GetGopherNotFound) SetAccessControlAllowOrigin(accessControlAllowOrigin string) {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
+}
+
 // WriteResponse to the client
 func (o *GetGopherNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	// response header Access-Control-Allow-Origin
+
+	accessControlAllowOrigin := o.AccessControlAllowOrigin
+	if accessControlAllowOrigin != "" {
+		rw.Header().Set("Access-Control-Allow-Origin", accessControlAllowOrigin)
+	}
 
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 

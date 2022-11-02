@@ -55,10 +55,20 @@ func init() {
             "schema": {
               "type": "object",
               "$ref": "#/definitions/Gopher"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           },
           "404": {
-            "description": "A gopher with the specified Name was not found."
+            "description": "A gopher with the specified Name was not found.",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -182,6 +192,11 @@ func init() {
               "items": {
                 "$ref": "#/definitions/Gopher"
               }
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           }
         }
@@ -201,6 +216,11 @@ func init() {
               "enum": [
                 "OK"
               ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           }
         }
@@ -265,10 +285,20 @@ func init() {
             "schema": {
               "type": "object",
               "$ref": "#/definitions/Gopher"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           },
           "404": {
-            "description": "A gopher with the specified Name was not found."
+            "description": "A gopher with the specified Name was not found.",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -392,6 +422,11 @@ func init() {
               "items": {
                 "$ref": "#/definitions/Gopher"
               }
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           }
         }
@@ -411,6 +446,11 @@ func init() {
               "enum": [
                 "OK"
               ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
             }
           }
         }
