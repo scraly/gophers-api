@@ -51,18 +51,18 @@ func main() {
 }
 
 type gopher struct {
-	Name string `json:"Name"`
-	Path string `json:"Path"`
-	URL  string `json:"URL"`
+	Name        string `json:"name"`
+	Displayname string `json:"displayname"`
+	URL         string `json:"url"`
 }
 
 type allGophers []gopher
 
 var gophers = allGophers{
 	{
-		Name: "5th Element",
-		Path: "5th-element.png",
-		URL:  "https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png",
+		Name:        "5th-element",
+		Displayname: "5th Element",
+		URL:         "https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png",
 	},
 }
 
@@ -82,7 +82,7 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 
 	// Get all existing Gophers
 	for _, myGopher := range gophers {
-		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Path: myGopher.Path, URL: myGopher.URL})
+		gophersList = append(gophersList, &models.Gopher{Name: myGopher.Name, Displayname: myGopher.Displayname, URL: myGopher.URL})
 	}
 
 	return operations.NewGetGophersOK().
@@ -100,9 +100,9 @@ func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responde
 
 			return operations.NewGetGopherOK().WithPayload(
 				&models.Gopher{
-					Name: myGopher.Name,
-					Path: myGopher.Path,
-					URL:  myGopher.URL}).
+					Name:        myGopher.Name,
+					Displayname: myGopher.Displayname,
+					URL:         myGopher.URL}).
 				WithAccessControlAllowOrigin("*")
 		}
 	}
@@ -139,19 +139,19 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 	fmt.Println("[CreateGopher] Call method")
 
 	name := gopherParam.Gopher.Name
-	path := gopherParam.Gopher.Path
+	displayname := gopherParam.Gopher.Displayname
 	url := gopherParam.Gopher.URL
 
-	fmt.Println("Try to create a Gopher with the parameters:", *name, *path, *url)
+	fmt.Println("Try to create a Gopher with the parameters:", *name, *displayname, *url)
 
 	// Check if a gopher not already exists
 	if !gopherExists(*name) {
 		// Add new gopher in the list of existing Gophers
-		gophers = append(gophers, gopher{*name, *path, *url})
+		gophers = append(gophers, gopher{*name, *displayname, *url})
 
 		fmt.Println("Gopher", *name, "created!")
 
-		return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Path: *path, URL: *url})
+		return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Displayname: *displayname, URL: *url})
 	} else {
 		return operations.NewPostGopherConflict()
 	}
@@ -179,7 +179,7 @@ func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responde
 	return operations.NewDeleteGopherNotFound()
 }
 
-// Update the path and the URL of an existing Gopher
+// Update the displayname and the URL of an existing Gopher
 func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
 	fmt.Println("[UpdateGopher] Call method")
 
@@ -187,15 +187,15 @@ func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
 
 	for i := range gophers {
 		if gophers[i].Name == *gopherParam.Gopher.Name {
-			gophers[i].Path = *gopherParam.Gopher.Path
+			gophers[i].Displayname = *gopherParam.Gopher.Displayname
 			gophers[i].URL = *gopherParam.Gopher.URL
 
 			fmt.Println("Gopher updated!")
 
 			return operations.NewPostGopherCreated().WithPayload(&models.Gopher{
-				Name: *gopherParam.Gopher.Name,
-				Path: *gopherParam.Gopher.Path,
-				URL:  *gopherParam.Gopher.URL})
+				Name:        *gopherParam.Gopher.Name,
+				Displayname: *gopherParam.Gopher.Displayname,
+				URL:         *gopherParam.Gopher.URL})
 		}
 	}
 
@@ -230,7 +230,7 @@ func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
 
 // 		var name string = strings.Split(*c.Name, ".")[0]
 
-// 		arr = append(arr, &models.Gopher{name, *c.Path, *c.DownloadURL})
+// 		arr = append(arr, &models.Gopher{name, *c.Displayname, *c.DownloadURL})
 
 // 	}
 

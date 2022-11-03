@@ -17,13 +17,13 @@ import (
 // swagger:model Gopher
 type Gopher struct {
 
+	// displayname
+	// Example: My Gopher
+	Displayname string `json:"displayname,omitempty"`
+
 	// name
 	// Example: my-gopher
 	Name string `json:"name,omitempty"`
-
-	// path
-	// Example: my-gopher.png
-	Path string `json:"path,omitempty"`
 
 	// url
 	// Example: https://raw.githubusercontent.com/scraly/gophers/main/arrow-gopher.png
