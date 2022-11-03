@@ -60,7 +60,7 @@ type allGophers []gopher
 
 var gophers = allGophers{
 	{
-		Name: "5th-element",
+		Name: "5th Element",
 		Path: "5th-element.png",
 		URL:  "https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png",
 	},
