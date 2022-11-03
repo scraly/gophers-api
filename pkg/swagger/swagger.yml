@@ -19,6 +19,9 @@ paths:
       responses:
         '200':
           description: OK message.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
           schema:
             type: string
             enum:
@@ -31,10 +34,14 @@ paths:
       responses:
         200:
           description: Return the Gophers list.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
           schema:
             type: array
             items:
               $ref: '#/definitions/Gopher'
+
 
   /gopher:
     post:
@@ -79,11 +86,17 @@ paths:
       responses:
         200:
           description: A gopher
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
           schema:
             type: object
             $ref: '#/definitions/Gopher'
         404:
           description: A gopher with the specified Name was not found.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
     delete:
       description: Delete a gopher by a given name
       parameters:

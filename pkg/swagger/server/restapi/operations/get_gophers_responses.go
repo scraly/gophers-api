@@ -22,6 +22,10 @@ GetGophersOK Return the Gophers list.
 swagger:response getGophersOK
 */
 type GetGophersOK struct {
+	/*
+
+	 */
+	AccessControlAllowOrigin string `json:"Access-Control-Allow-Origin"`
 
 	/*
 	  In: Body
@@ -33,6 +37,17 @@ type GetGophersOK struct {
 func NewGetGophersOK() *GetGophersOK {
 
 	return &GetGophersOK{}
+}
+
+// WithAccessControlAllowOrigin adds the accessControlAllowOrigin to the get gophers o k response
+func (o *GetGophersOK) WithAccessControlAllowOrigin(accessControlAllowOrigin string) *GetGophersOK {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
+	return o
+}
+
+// SetAccessControlAllowOrigin sets the accessControlAllowOrigin to the get gophers o k response
+func (o *GetGophersOK) SetAccessControlAllowOrigin(accessControlAllowOrigin string) {
+	o.AccessControlAllowOrigin = accessControlAllowOrigin
 }
 
 // WithPayload adds the payload to the get gophers o k response
@@ -48,6 +63,13 @@ func (o *GetGophersOK) SetPayload(payload []*models.Gopher) {
 
 // WriteResponse to the client
 func (o *GetGophersOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	// response header Access-Control-Allow-Origin
+
+	accessControlAllowOrigin := o.AccessControlAllowOrigin
+	if accessControlAllowOrigin != "" {
+		rw.Header().Set("Access-Control-Allow-Origin", accessControlAllowOrigin)
+	}
 
 	rw.WriteHeader(200)
 	payload := o.Payload
