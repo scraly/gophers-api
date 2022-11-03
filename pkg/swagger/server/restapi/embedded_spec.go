@@ -83,14 +83,14 @@ func init() {
               "type": "object",
               "required": [
                 "name",
-                "path",
+                "displayname",
                 "url"
               ],
               "properties": {
-                "name": {
+                "displayname": {
                   "type": "string"
                 },
-                "path": {
+                "name": {
                   "type": "string"
                 },
                 "url": {
@@ -127,14 +127,14 @@ func init() {
               "type": "object",
               "required": [
                 "name",
-                "path",
+                "displayname",
                 "url"
               ],
               "properties": {
-                "name": {
+                "displayname": {
                   "type": "string"
                 },
-                "path": {
+                "name": {
                   "type": "string"
                 },
                 "url": {
@@ -231,13 +231,13 @@ func init() {
     "Gopher": {
       "type": "object",
       "properties": {
+        "displayname": {
+          "type": "string",
+          "example": "My Gopher"
+        },
         "name": {
           "type": "string",
           "example": "my-gopher"
-        },
-        "path": {
-          "type": "string",
-          "example": "my-gopher.png"
         },
         "url": {
           "type": "string",
@@ -313,14 +313,14 @@ func init() {
               "type": "object",
               "required": [
                 "name",
-                "path",
+                "displayname",
                 "url"
               ],
               "properties": {
-                "name": {
+                "displayname": {
                   "type": "string"
                 },
-                "path": {
+                "name": {
                   "type": "string"
                 },
                 "url": {
@@ -357,14 +357,14 @@ func init() {
               "type": "object",
               "required": [
                 "name",
-                "path",
+                "displayname",
                 "url"
               ],
               "properties": {
-                "name": {
+                "displayname": {
                   "type": "string"
                 },
-                "path": {
+                "name": {
                   "type": "string"
                 },
                 "url": {
@@ -461,13 +461,13 @@ func init() {
     "Gopher": {
       "type": "object",
       "properties": {
+        "displayname": {
+          "type": "string",
+          "example": "My Gopher"
+        },
         "name": {
           "type": "string",
           "example": "my-gopher"
-        },
-        "path": {
-          "type": "string",
-          "example": "my-gopher.png"
         },
         "url": {
           "type": "string",

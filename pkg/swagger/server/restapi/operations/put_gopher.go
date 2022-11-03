@@ -65,13 +65,13 @@ func (o *PutGopher) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 // swagger:model PutGopherBody
 type PutGopherBody struct {
 
+	// displayname
+	// Required: true
+	Displayname *string `json:"displayname"`
+
 	// name
 	// Required: true
 	Name *string `json:"name"`
-
-	// path
-	// Required: true
-	Path *string `json:"path"`
 
 	// url
 	// Required: true
@@ -82,11 +82,11 @@ type PutGopherBody struct {
 func (o *PutGopherBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := o.validateName(formats); err != nil {
+	if err := o.validateDisplayname(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := o.validatePath(formats); err != nil {
+	if err := o.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,18 +100,18 @@ func (o *PutGopherBody) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (o *PutGopherBody) validateName(formats strfmt.Registry) error {
+func (o *PutGopherBody) validateDisplayname(formats strfmt.Registry) error {
 
-	if err := validate.Required("gopher"+"."+"name", "body", o.Name); err != nil {
+	if err := validate.Required("gopher"+"."+"displayname", "body", o.Displayname); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (o *PutGopherBody) validatePath(formats strfmt.Registry) error {
+func (o *PutGopherBody) validateName(formats strfmt.Registry) error {
 
-	if err := validate.Required("gopher"+"."+"path", "body", o.Path); err != nil {
+	if err := validate.Required("gopher"+"."+"name", "body", o.Name); err != nil {
 		return err
 	}
 
