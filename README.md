@@ -72,7 +72,7 @@ curl localhost:8080/gophers
 Response:
 
 ```bash
-[{"name":"5th-element","path":"5th-element.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"},{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}]
+[{"displayname":"5th Element","name":"5th-element","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"}]
 ```
 
 * Get a Gopher with the input name
@@ -84,7 +84,7 @@ curl localhost:8080/gopher?name=5th-element
 Response:
 
 ```bash
-{"name":"5th-element","path":"5th-element.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"}
+{"displayname":"5th Element","name":"5th-element","url":"https://raw.githubusercontent.com/scraly/gophers/main/5th-element.png"}
 ```
 
 /!\ Returns a 404 HTTP Error Code if a Gopher have not been found for the given name.
@@ -94,13 +94,13 @@ Response:
 ```
 curl -X POST localhost:8080/gopher \
    -H "Content-Type: application/json" \
-   -d '{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
+   -d '{"name":"yoda-gopher","displayname":"Yoda Gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
 ```
 
 Response:
 
 ```bash
-{"name":"yoda-gopher","path":"yoda-gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
+{"displayname":"Yoda Gopher.png","name":"yoda-gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
 ```
 
 * Delete a Gopher
@@ -114,13 +114,13 @@ curl -X DELETE localhost:8080/gopher?name=5th-element
 ```bash
 curl -X PUT localhost:8080/gopher \
    -H "Content-Type: application/json" \
-   -d '{"name":"yoda-gopher","path":"yoda-gopher.pngg","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}' 
+   -d '{"name":"yoda-gopher","displayname":"El mejor Yoda Gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}' 
 ```
 
 Response:
 
 ```bash
-{"name":"yoda-gopher","path":"yoda-gopher.pngg","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
+{"displayname":"El mejor Yoda Gopher","name":"yoda-gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
 ```
 
 ## Notes
