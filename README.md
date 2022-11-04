@@ -94,13 +94,21 @@ Response:
 ```
 curl -X POST localhost:8080/gopher \
    -H "Content-Type: application/json" \
-   -d '{"name":"yoda-gopher","displayname":"Yoda Gopher.png","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
+   -d '{"name":"yoda-gopher","displayname":"Yoda Gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}'  
 ```
 
 Response:
 
 ```bash
 {"displayname":"Yoda Gopher.png","name":"yoda-gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
+```
+
+Add another Gopher:
+
+```
+curl -X POST localhost:8080/gopher \
+   -H "Content-Type: application/json" \
+   -d '{"name":"jurassic-park","displayname":"Gopher Park","url":"https://raw.githubusercontent.com/scraly/gophers/main/jurassic-park.png"}'  
 ```
 
 * Delete a Gopher
