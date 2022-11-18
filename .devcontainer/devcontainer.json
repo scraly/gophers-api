@@ -1,0 +1,32 @@
+{
+	"name": "Go",
+	"image": "mcr.microsoft.com/devcontainers/go:0-1-bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+		// quite long for a demo but make sense if you have time
+		// "ghcr.io/devcontainers/features/docker-from-docker:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:0": {},
+		"ghcr.io/guiyomh/features/golangci-lint:0": {},
+		"ghcr.io/guiyomh/features/goreleaser:0": {},
+		"ghcr.io/eitsupi/devcontainer-features/go-task:0": {}
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"go.toolsManagement.checkForUpdates": "local",
+				"go.useLanguageServer": true,
+				"go.gopath": "/go"
+			},
+			"extensions": [
+				"golang.go",
+				"paulvarache.vscode-taskfile"
+			]
+		}
+	}
+}
