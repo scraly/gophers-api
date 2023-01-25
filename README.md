@@ -78,7 +78,7 @@ Response:
 * Get a Gopher with the input name
 
 ```bash
-curl localhost:8080/gopher?name=5th-element
+curl "localhost:8080/gopher?name=5th-element"
 ```
 
 Response:
@@ -114,7 +114,7 @@ curl -X POST localhost:8080/gopher \
 * Delete a Gopher
 
 ```bash
-curl -X DELETE localhost:8080/gopher?name=5th-element
+curl -X DELETE "localhost:8080/gopher?name=5th-element"
 ```
 
 * Update a Gopher
