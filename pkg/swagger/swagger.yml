@@ -9,6 +9,8 @@ produces:
 schemes:
 - http
 swagger: "2.0"
+tags:
+  - name: gophers
 
 paths:
   /healthz:
