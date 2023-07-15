@@ -17,6 +17,8 @@ paths:
   /healthz:
     get:
       operationId: checkHealth
+      tags:
+        - gophers
       produces:
       - text/plain
       responses:
