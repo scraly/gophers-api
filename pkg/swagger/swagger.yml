@@ -16,9 +16,10 @@ tags:
 paths:
   /healthz:
     get:
-      operationId: checkHealth
+      description: Check Health
       tags:
         - gophers
+      operationId: checkHealth
       produces:
       - text/plain
       responses:
