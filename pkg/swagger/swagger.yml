@@ -11,13 +11,12 @@ schemes:
 swagger: "2.0"
 tags:
   - name: gophers
+    description: Handle Gophers
 
 paths:
   /healthz:
     get:
       operationId: checkHealth
-      tags:
-        - gophers
       produces:
       - text/plain
       responses:
@@ -33,6 +32,8 @@ paths:
   /gophers:
     get:
       description: List Gophers
+      tags:
+        - gophers
       produces:
        - application/json
       responses:
@@ -50,6 +51,8 @@ paths:
   /gopher:
     post:
       summary: Add a new Gopher
+      tags:
+        - gophers
       consumes:
         - application/json
       parameters:
@@ -79,6 +82,8 @@ paths:
           description: Gopher already exists
     get:
       description: Get a gopher by a given name
+      tags:
+        - gophers
       produces:
        - application/json
       parameters:
@@ -103,6 +108,8 @@ paths:
               type: string
     delete:
       description: Delete a gopher by a given name
+      tags:
+        - gophers
       parameters:
         - name: name
           in: query
@@ -116,6 +123,8 @@ paths:
           description: A gopher with the specified Name was not found.
     put:
       description: Update a gopher
+      tags:
+        - gophers
       parameters:
         - in: body
           name: gopher
