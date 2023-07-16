@@ -15,8 +15,11 @@ jobs:
   mac:
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v3
+      
       - run: brew install go-task/tap/go-task 
       - run: brew tap go-swagger/go-swagger && brew install go-swagger
       
       - name: Validate swagger
         run: task swagger.validate
+      
