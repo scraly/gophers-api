@@ -12,15 +12,11 @@ on:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
+  mac:
+    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.19'
+      - run: brew install go-task/tap/go-task 
+      - run: brew tap go-swagger/go-swagger && brew install go-swagger
       
-    - name: Validate swagger
-      run: task swagger.validate
+      - name: Validate swagger
+        run: task swagger.validate
