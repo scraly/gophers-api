@@ -9,6 +9,21 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+     inputs:
+      gopherssdkgo:
+        description: 'gophers-sdk-go which will be triggered'
+        required: true
+        default: 'gopherssdkgo'
+
+      gopherssdkgo_github_account:
+        description: 'GitHub Account Owner'
+        required: true
+        default: 'scraly'
+
+      gopherssdkgo_repo_github:
+        description: 'repo-name'
+        required: true
+        default: 'gophers-sdk-go' 
 
 jobs:
 
@@ -22,4 +37,11 @@ jobs:
       
       - name: Validate swagger
         run: task swagger.validate
-      
+        
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Test
+        run: |
+          curl -X POST https://api.github.com/repos/scraly/gophers-sdk-go/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACTIONS_KEY }} \
+          --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'      
