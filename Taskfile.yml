@@ -31,3 +31,13 @@ tasks:
         cmds:
         - cmd: |
             swagger serve -F swagger ./pkg/swagger/swagger.yml --no-open
+
+    docker.tag:
+        desc: Tag docker image
+        cmds:
+        - docker tag scraly/gophers-api:latest
+
+    docker.push:
+        desc: Push docker image in Docker Hub
+        cmds:
+        - docker push scraly/gophers-api:latest
