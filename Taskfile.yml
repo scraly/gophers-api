@@ -32,6 +32,11 @@ tasks:
         - cmd: |
             swagger serve -F swagger ./pkg/swagger/swagger.yml --no-open
 
+    docker.build:
+        desc: Build Docker image
+        cmds:
+        - DOCKER_BUILDKIT=1 docker build -t gophers-api .
+
     docker.tag:
         desc: Tag docker image
         cmds:
@@ -41,3 +46,13 @@ tasks:
         desc: Push docker image in Docker Hub
         cmds:
         - docker push scraly/gophers-api:latest
+
+    docker.buildlinuxamd64:
+        desc: Build for linux/amd64 (GitPod) and push to Docker Hub 
+        cmds:
+        - docker buildx build --platform linux/amd64 -t scraly/gophers-api:linux-amd64 . --push
+
+    release:
+        desc: run GoReleaser 
+        cmds:
+        - goreleaser release --snapshot --skip-publish --rm-dist

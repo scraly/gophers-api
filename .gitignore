@@ -17,3 +17,4 @@
 bin/gophers-api
 
 .DS_Store
+dist/*

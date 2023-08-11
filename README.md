@@ -145,11 +145,20 @@ DOCKER_BUILDKIT=1 docker build -t gophers-api .
 docker buildx build --platform linux/amd64 -t scraly/gophers-api:linux-amd64 . --push
 ```
 
-## Goreleaser
+## GoReleaser
+
+Install the CLI:
 
 ```
 brew install goreleaser
 ```
+
+Generate .goreleaser.yml (the firt time):
+```
+goreleaser init
+```
+
+Release:
 
 ```
 goreleaser release --snapshot --skip-publish --rm-dist
