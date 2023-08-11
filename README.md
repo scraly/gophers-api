@@ -131,6 +131,30 @@ Response:
 {"displayname":"El mejor Yoda Gopher","name":"yoda-gopher","url":"https://raw.githubusercontent.com/scraly/gophers/main/yoda-gopher.png"}
 ```
 
+## Build docker image
+
+* Build a docker image for our current/host platform:
+
+```
+DOCKER_BUILDKIT=1 docker build -t gophers-api .
+```
+
+* Build for GitPod (linux/amd64) and push to the Docker Hub:
+
+```
+docker buildx build --platform linux/amd64 -t scraly/gophers-api:linux-amd64 . --push
+```
+
+## Goreleaser
+
+```
+brew install goreleaser
+```
+
+```
+goreleaser release --snapshot --skip-publish --rm-dist
+```
+
 ## Notes
 
 This API use [go-swagger](https://goswagger.io/install.html)
