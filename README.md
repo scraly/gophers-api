@@ -14,6 +14,10 @@ It alllows to:
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scraly/gophers-api.git)
 
+## Docker image
+
+Gophers API is available in [Docker Hub](https://hub.docker.com/r/scraly/gophers-api).
+
 ## How to install 
 
 ### Prerequisites
