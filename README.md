@@ -18,6 +18,12 @@ It alllows to:
 
 Gophers API is available in [Docker Hub](https://hub.docker.com/r/scraly/gophers-api).
 
+### Run the Gophers API with Docker
+
+```bash
+docker run -p 8080:8080 scraly/gophers-api:linux-amd64
+```
+
 ## How to install 
 
 ### Prerequisites
