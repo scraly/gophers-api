@@ -50,12 +50,12 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ env.HARBOR_REGISTRY }}/public/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.HARBOR_REGISTRY }}/cnd/${{ env.IMAGE_NAME }}:latest
 
       - name: Attest
         if: needs.check-credentials.outputs.credentials_available == 'true'
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: ${{ env.HARBOR_REGISTRY }}/public/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.HARBOR_REGISTRY }}/cnd/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
           push-to-registry: true
