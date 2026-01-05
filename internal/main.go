@@ -360,7 +360,7 @@ func Health(operations.CheckHealthParams) middleware.Responder {
 
 // Returns a a list of Gophers
 func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
-	fmt.Println("[GetGophers] Call method")
+	//fmt.Println("[GetGophers]")
 
 	var gophersList []*models.Gopher
 
@@ -376,11 +376,11 @@ func GetGophers(gopher operations.GetGophersParams) middleware.Responder {
 
 // Returns an object of type Gopher with a given name
 func GetGopherByName(gopherParam operations.GetGopherParams) middleware.Responder {
-	fmt.Println("[GetGopherByName] Call method")
+	//fmt.Println("[GetGopherByName] Call method")
 
 	for _, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
-			fmt.Println("Gopher", gopherParam.Name, "found in DB")
+			//fmt.Println("[GetGopherByName] Gopher", gopherParam.Name, "found in DB")
 
 			return operations.NewGetGopherOK().WithPayload(
 				&models.Gopher{
@@ -420,20 +420,20 @@ func gopherExists(gopherName string) bool {
 
 // Add a new Gopher
 func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder {
-	fmt.Println("[CreateGopher] Call method")
+	//fmt.Println("[CreateGopher] Call method")
 
 	name := gopherParam.Gopher.Name
 	displayname := gopherParam.Gopher.Displayname
 	url := gopherParam.Gopher.URL
 
-	fmt.Println("Try to create a Gopher with the parameters:", *name, *displayname, *url)
+	//fmt.Println("Try to create a Gopher with the parameters:", *name, *displayname, *url)
 
 	// Check if a gopher not already exists
 	if !gopherExists(*name) {
 		// Add new gopher in the list of existing Gophers
 		gophers = append(gophers, gopher{*name, *displayname, *url})
 
-		fmt.Println("Gopher", *name, "created!")
+		//fmt.Println("[CreateGopher] Gopher", *name, "created!")
 
 		return operations.NewPostGopherCreated().WithPayload(&models.Gopher{Name: *name, Displayname: *displayname, URL: *url})
 	} else {
@@ -443,21 +443,21 @@ func CreateGopher(gopherParam operations.PostGopherParams) middleware.Responder 
 
 // Delete a Gopher with a given name
 func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responder {
-	fmt.Println("[DeleteGopher] Call method")
+	//fmt.Println("[DeleteGopher] Call method")
 
 	for i, myGopher := range gophers {
 		if myGopher.Name == gopherParam.Name {
-			fmt.Println("Gopher", gopherParam.Name, "found in DB, try to delete it")
+			//fmt.Println("[DeleteGopher] Gopher", gopherParam.Name, "found in DB, try to delete it")
 
 			gophers = append(gophers[:i], gophers[i+1:]...)
 
-			fmt.Println("Gopher", gopherParam.Name, "deleted!")
+			//fmt.Println("[DeleteGopher] Gopher", gopherParam.Name, "deleted!")
 
 			return operations.NewDeleteGopherOK()
 		}
 	}
 
-	fmt.Println("[DeleteGopher] End of the method")
+	//fmt.Println("[DeleteGopher] End of the method")
 
 	//If gopher have not been found, returns a 404 HTTP Error Code
 	return operations.NewDeleteGopherNotFound()
@@ -465,16 +465,16 @@ func DeleteGopher(gopherParam operations.DeleteGopherParams) middleware.Responde
 
 // Update the displayname and the URL of an existing Gopher
 func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
-	fmt.Println("[UpdateGopher] Call method")
+	//fmt.Println("[UpdateGopher] Call method")
 
-	fmt.Println("Updating", *gopherParam.Gopher.Name, "with new values")
+	//fmt.Println("[UpdateGopher] Updating", *gopherParam.Gopher.Name, "with new values")
 
 	for i := range gophers {
 		if gophers[i].Name == *gopherParam.Gopher.Name {
 			gophers[i].Displayname = *gopherParam.Gopher.Displayname
 			gophers[i].URL = *gopherParam.Gopher.URL
 
-			fmt.Println("Gopher updated!")
+			//fmt.Println("[UpdateGopher] Gopher updated!")
 
 			return operations.NewPostGopherCreated().WithPayload(&models.Gopher{
 				Name:        *gopherParam.Gopher.Name,
@@ -482,8 +482,6 @@ func UpdateGopher(gopherParam operations.PutGopherParams) middleware.Responder {
 				URL:         *gopherParam.Gopher.URL})
 		}
 	}
-
-	fmt.Println("[UpdateGopher] End of the method")
 
 	return operations.NewPutGopherOK()
 }
