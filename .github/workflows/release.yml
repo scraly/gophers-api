@@ -54,28 +54,21 @@ jobs:
           context: .
           file: ./Dockerfile
           sbom: true
-          #provenance: mode=max
+          provenance: mode=max
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
       - name: Sign the image with GitHub OIDC Token
-        env:
-          DIGEST: ${{ steps.build-and-push-harbor.outputs.digest }}
-          TAGS: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
         run: |
-          images=""
-          for tag in ${TAGS}; do
-            images+="${tag}@${DIGEST} "
-          done
-          cosign sign --new-bundle-format=false --use-signing-config=false --yes ${images}
+          cosign sign --new-bundle-format=false --use-signing-config=false --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
 
-      - name: Attest
-        if: needs.check-credentials.outputs.credentials_available == 'true'
-        uses: actions/attest-build-provenance@v3
-        with:
-          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
-          subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
-          push-to-registry: true
+#      - name: Attest
+#        if: needs.check-credentials.outputs.credentials_available == 'true'
+#        uses: actions/attest-build-provenance@v3
+#        with:
+#          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
+#          subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
+#          push-to-registry: true
 
 #TODO: attach and sign the SBOM: attest-sbom?
