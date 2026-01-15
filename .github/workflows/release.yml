@@ -57,20 +57,32 @@ jobs:
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
-          attests: |
-            type=sbom
-            type=provenance,mode=max
-
       - name: Sign the image with GitHub OIDC Token
         run: |
           cosign sign --new-bundle-format=false --use-signing-config=false --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
 
-#      - name: Attest
-#        if: needs.check-credentials.outputs.credentials_available == 'true'
-#        uses: actions/attest-build-provenance@v3
-#        with:
-#          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
-#          subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
-#          push-to-registry: true
+      - name: Attest Provenance attestations
+        if: needs.check-credentials.outputs.credentials_available == 'true'
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
+          push-to-registry: true
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          format: 'cyclonedx-json'
+          output-file: 'sbom.cyclonedx.json'
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@v3
+        id: attest
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          sbom-path: 'sbom.cyclonedx.json'
+          push-to-registry: true
 
 #TODO: attach and sign the SBOM: attest-sbom?
