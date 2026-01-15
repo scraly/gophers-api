@@ -98,10 +98,20 @@ jobs:
           output-format: openvex
           output-file: gophers-api.vex.json
 
+      - name: Display VEX
+        run: |
+          cat gophers-api.vex.json
+
+      - name: Set HASH from a Digest
+        run: |
+          ORIGINAL=${{ steps.build-and-push-harbor.outputs.digest }}
+          SHA_ONLY=${ORIGINAL#sha256:}
+          echo "SHA_ONLY=$SHA_ONLY"
+
       - name: Attest VEX
         run: |
           #oras login -u ${{ vars.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }} ${{ env.HARBOR_REGISTRY }}
-          oras attach ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:${{ steps.build-and-push-harbor.outputs.digest }} --artifact-type application/vnd.openvex+json gophers-api.vex.json:application/json
+          oras attach ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY --artifact-type application/vnd.openvex+json gophers-api.vex.json:application/json
 
 #TODO: scan vulns?
 #TODO: generate VEX file and push it
