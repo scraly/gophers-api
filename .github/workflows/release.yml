@@ -59,7 +59,7 @@ jobs:
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
-          attestations: |
+          attests: |
             type=sbom
             type=provenance,mode=max
 
