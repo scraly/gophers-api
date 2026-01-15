@@ -52,7 +52,6 @@ jobs:
           context: .
           file: ./Dockerfile
           sbom: true
-          provenance: mode=max
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
