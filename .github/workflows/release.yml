@@ -82,10 +82,13 @@ jobs:
         uses: actions/attest-sbom@v3
         id: attest
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           sbom-path: 'sbom.cyclonedx.json'
           push-to-registry: true
 
+#TODO: scan vulns?
 #TODO: attach and sign the SBOM: attest-sbom?
-#TODO: generate VEX file and push it (at least execute the command)
+#TODO: generate VEX file and push it
+#govulncheck -format openvex ./... > ../gophers-api.vex.json
+#oras attach $IMAGE@sha256:$HASH --artifact-type application/vnd.openvex+json gophers-api.fixed.vex.json:application/json
