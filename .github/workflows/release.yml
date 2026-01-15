@@ -106,7 +106,7 @@ jobs:
         run: |
           ORIGINAL=${{ steps.build-and-push-harbor.outputs.digest }}
           SHA_ONLY=${ORIGINAL#sha256:}
-          echo "SHA_ONLY=$SHA_ONLY"
+          echo "SHA_ONLY=$SHA_ONLY" >> $GITHUB_ENV
 
       - name: Attest VEX
         run: |
@@ -115,5 +115,6 @@ jobs:
 
 #TODO: scan vulns?
 #TODO: generate VEX file and push it
-#govulncheck -format openvex ./... > ../gophers-api.vex.json
+#govulncheck -format openvex ./... > gophers-api.vex.json
+#Fix the generated VEX file to be supportd by scan tools (trivy, grype...)
 #oras attach $IMAGE@sha256:$HASH --artifact-type application/vnd.openvex+json gophers-api.vex.json:application/json
