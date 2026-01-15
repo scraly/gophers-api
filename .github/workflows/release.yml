@@ -32,6 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v4.0.0
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
 
@@ -51,9 +54,21 @@ jobs:
           context: .
           file: ./Dockerfile
           sbom: true
-          provenance: mode=max
+          #provenance: mode=max
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
+
+      - name: Sign the image with GitHub OIDC Token
+        env:
+          DIGEST: ${{ steps.build-and-push-harbor.outputs.digest }}
+          TAGS: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
+        run: |
+          images=""
+          for tag in ${TAGS}; do
+            images+="${tag}@${DIGEST} "
+          done
+          cosign sign --new-bundle-format=false --use-signing-config=false --yes ${images}
 
       - name: Attest
         if: needs.check-credentials.outputs.credentials_available == 'true'
@@ -62,3 +77,5 @@ jobs:
           subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
           push-to-registry: true
+
+#TODO: attach and sign the SBOM: attest-sbom?
