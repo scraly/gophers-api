@@ -1,10 +1,6 @@
 name: Build, Push and Securize
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
