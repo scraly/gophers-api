@@ -72,7 +72,7 @@ jobs:
       - name: Generate SBOM
         uses: anchore/sbom-action@v0
         with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          image: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
           registry-username: ${{ vars.HARBOR_USERNAME }}
           registry-password: ${{ secrets.HARBOR_PASSWORD }}
           format: 'cyclonedx-json'
@@ -88,3 +88,4 @@ jobs:
           push-to-registry: true
 
 #TODO: attach and sign the SBOM: attest-sbom?
+#TODO: generate VEX file and push it (at least execute the command)
