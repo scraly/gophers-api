@@ -73,6 +73,8 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          registry-username: ${{ vars.HARBOR_USERNAME }}
+          registry-password: ${{ secrets.HARBOR_PASSWORD }}
           format: 'cyclonedx-json'
           output-file: 'sbom.cyclonedx.json'
 
