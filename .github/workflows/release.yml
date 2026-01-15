@@ -110,7 +110,7 @@ jobs:
 
       - name: Fix VEX (product ID)
         run: |
-          jq --arg hash "$SHA_ONLY"" \
+          jq --arg hash "$SHA_ONLY" \
             --arg registry "${{ env.HARBOR_REGISTRY }}" \
             --arg project "auto" '
             .statements |= map(
@@ -128,7 +128,8 @@ jobs:
 
       - name: Attest VEX
         run: |
-          oras login -u ${{ vars.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }} ${{ env.HARBOR_REGISTRY }}
+          #not necessary because of the docker login?
+          #oras login -u ${{ vars.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }} ${{ env.HARBOR_REGISTRY }}
           oras attach ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY --artifact-type application/vnd.openvex+json gophers-api.fixed.vex.json:application/json
 
 
