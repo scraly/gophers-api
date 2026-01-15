@@ -35,6 +35,9 @@ jobs:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v4.0.0
 
+      - name: Setup ORAS
+        uses: oras-project/setup-oras@v1
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
 
@@ -87,8 +90,20 @@ jobs:
           sbom-path: 'sbom.cyclonedx.json'
           push-to-registry: true
 
+      - name: Generate VEX
+        uses: golang/govulncheck-action@b625fbe08f3bccbe446d94fbf87fcc875a4f50ee # v1.0.4
+        id: govulncheck
+        with:
+          # NOTE that we want to produce the OpenVEX format report, which can then be consumed by other tools
+          output-format: openvex
+          output-file: gophers-api.vex.json
+
+      - name: Attest VEX
+        run: |
+          #oras login -u ${{ vars.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }} ${{ env.HARBOR_REGISTRY }}
+          oras attach ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:${{ steps.build-and-push-harbor.outputs.digest }} --artifact-type application/vnd.openvex+json gophers-api.vex.json:application/json
+
 #TODO: scan vulns?
-#TODO: attach and sign the SBOM: attest-sbom?
 #TODO: generate VEX file and push it
 #govulncheck -format openvex ./... > ../gophers-api.vex.json
-#oras attach $IMAGE@sha256:$HASH --artifact-type application/vnd.openvex+json gophers-api.fixed.vex.json:application/json
+#oras attach $IMAGE@sha256:$HASH --artifact-type application/vnd.openvex+json gophers-api.vex.json:application/json
