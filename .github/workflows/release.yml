@@ -59,6 +59,10 @@ jobs:
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
+          attestations: |
+            type=sbom
+            type=provenance,mode=max
+
       - name: Sign the image with GitHub OIDC Token
         run: |
           cosign sign --new-bundle-format=false --use-signing-config=false --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
