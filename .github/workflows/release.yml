@@ -49,6 +49,7 @@ jobs:
           file: ./Dockerfile
           sbom: true
           provenance: mode=max
+          builder: buildx-multi-arch
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
