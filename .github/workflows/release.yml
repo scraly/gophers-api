@@ -83,7 +83,7 @@ jobs:
         id: attest
         with:
           subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
           sbom-path: 'sbom.cyclonedx.json'
           push-to-registry: true
 
