@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine AS builder
+FROM golang:1.25-alpine AS builder
 WORKDIR /build
 COPY . .
 RUN go mod download
