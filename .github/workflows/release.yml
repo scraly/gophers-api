@@ -78,8 +78,8 @@ jobs:
           image: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
           registry-username: ${{ vars.HARBOR_USERNAME }}
           registry-password: ${{ secrets.HARBOR_PASSWORD }}
-          format: 'cyclonedx-json'
-          output-file: 'sbom.cyclonedx.json'
+          format: 'spdx-json'
+          output-file: 'sbom.spdx.json'
 
       - name: Attest SBOM
         uses: actions/attest-sbom@v3
@@ -87,7 +87,7 @@ jobs:
         with:
           subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
-          sbom-path: 'sbom.cyclonedx.json'
+          sbom-path: 'sbom.spdx.json'
           push-to-registry: true
 
       - name: Generate VEX
