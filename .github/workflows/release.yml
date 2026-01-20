@@ -60,7 +60,7 @@ jobs:
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
-      - name: Sign and verify the images with GitHub OIDC Token
+      - name: Sign and verify the image with GitHub OIDC Token
         run: |
           cosign sign --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
           cosign verify ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
@@ -122,7 +122,12 @@ jobs:
 
       - name: Attest VEX
         run: |
-          oras attach ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY --artifact-type application/vnd.openvex+json gophers-api.fixed.vex.json:application/json
+          cosign attest -y --predicate gophers-api.fixed.vex.json --type openvex ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY
 
+      - name: Verify the image
+        run: |
+          cosign verify ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
+          --certificate-identity=https://github.com/scraly/gophers-api/.github/workflows/release.yml@refs/heads/main \
+          --certificate-oidc-issuer=https://token.actions.githubusercontent.com
 
 #TODO: scan vulns?
