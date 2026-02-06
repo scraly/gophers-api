@@ -60,7 +60,7 @@ jobs:
           push: true
           tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
 
-      - name: Sign (v2 and v3) and verify the image with GitHub OIDC Token
+      - name: Sign and verify the image with GitHub OIDC Token
         run: |
           cosign sign --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
 
@@ -130,5 +130,3 @@ jobs:
           cosign verify ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
           --certificate-identity=https://github.com/scraly/gophers-api/.github/workflows/release.yml@refs/heads/main \
           --certificate-oidc-issuer=https://token.actions.githubusercontent.com
-
-#TODO: scan vulns?
