@@ -1,6 +1,7 @@
 # gophers-api
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/scraly/gophers-api/badge)](https://scorecard.dev/viewer/?uri=github.com/scraly/gophers-api)
+[![Plumber Score](https://score.getplumber.io/github.com/scraly/gophers-api.svg)](https://score.getplumber.io/github.com/scraly/gophers-api)
 
 This simple API handle a list of Gophers.
 It alllows to:
