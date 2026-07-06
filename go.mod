@@ -1,6 +1,6 @@
 module github.com/scraly/gophers-api
 
-go 1.18
+go 1.25.0
 
 require (
 	github.com/go-openapi/errors v0.20.2
@@ -24,7 +24,9 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
-	go.mongodb.org/mongo-driver v1.10.0 // indirect
+	go.mongodb.org/mongo-driver v1.17.7 // indirect
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace golang.org/x/sys => golang.org/x/sys v0.44.0
