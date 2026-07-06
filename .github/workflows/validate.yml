@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - run: brew install go-task/tap/go-task 
-      - run: brew tap go-swagger/go-swagger && brew install go-swagger
+      - run: brew trust --formula go-swagger/go-swagger/go-swagger && brew tap go-swagger/go-swagger && brew install go-swagger
       
       - name: Validate swagger
         run: task swagger.validate
