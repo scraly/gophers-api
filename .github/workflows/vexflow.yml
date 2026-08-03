@@ -1,0 +1,39 @@
+name: VEX Triage
+
+on:
+  # Run on pushes to main to pick up dependency changes
+  push:
+    branches: [main]
+  # Run on a schedule to process new slash commands
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours, adjust as needed
+  # Allow manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write
+  attestations: write
+
+jobs:
+  vexflow-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install vexflow
+        run: |
+          # Download the latest release binary
+          # Check https://github.com/carabiner-dev/vexflow/releases for the latest version tag
+          VERSION="v0.1.0"  # replace with actual latest version
+          curl -sL "https://github.com/carabiner-dev/vexflow/releases/download/${VERSION}/vexflow-${VERSION}-linux-amd64" \
+            -o /usr/local/bin/vexflow
+          chmod +x /usr/local/bin/vexflow
+
+      - name: Run vexflow update
+        env:
+          GITHUB_TOKEN: ${{ secrets.VEXFLOW_TOKEN }}
+        run: |
+          vexflow update \
+            --repo sherine-k/gophers-api \
+            --branch main \
+            --triage-repo sherine-k/.vexflow
