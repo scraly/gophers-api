@@ -29,6 +29,11 @@ jobs:
       - name: Install vexflow
         run: go install github.com/carabiner-dev/vexflow@latest
 
+      - name: Configure git credentials
+        run: |
+          git config --global credential.helper store
+          echo "https://x-access-token:${{ secrets.VEXFLOW_TOKEN }}@github.com" >> ~/.git-credentials
+
       - name: Run vexflow update
         env:
           GITHUB_TOKEN: ${{ secrets.VEXFLOW_TOKEN }}
