@@ -20,14 +20,14 @@ jobs:
   vexflow-update:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: false
+
       - name: Install vexflow
-        run: |
-          # Download the latest release binary
-          # Check https://github.com/carabiner-dev/vexflow/releases for the latest version tag
-          VERSION="v0.1.0"  # replace with actual latest version
-          curl -sL "https://github.com/carabiner-dev/vexflow/releases/download/${VERSION}/vexflow-${VERSION}-linux-amd64" \
-            -o /usr/local/bin/vexflow
-          chmod +x /usr/local/bin/vexflow
+        run: go install github.com/carabiner-dev/vexflow@latest
 
       - name: Run vexflow update
         env:
