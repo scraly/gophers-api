@@ -58,13 +58,13 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}:latest
 
       - name: Sign and verify the image with GitHub OIDC Token
         run: |
-          cosign sign --yes ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
+          cosign sign --yes ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }}
 
-          cosign verify ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
+          cosign verify ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
           --certificate-identity=https://github.com/scraly/gophers-api/.github/workflows/release.yml@refs/heads/main \
           --certificate-oidc-issuer=https://token.actions.githubusercontent.com
 
@@ -72,14 +72,14 @@ jobs:
         if: needs.check-credentials.outputs.credentials_available == 'true'
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
           push-to-registry: true
 
       - name: Generate SBOM
         uses: anchore/sbom-action@v0
         with:
-          image: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
+          image: ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}
           registry-username: ${{ vars.HARBOR_USERNAME }}
           registry-password: ${{ secrets.HARBOR_PASSWORD }}
           format: 'spdx-json'
@@ -89,7 +89,7 @@ jobs:
         uses: actions/attest-sbom@v3
         id: attest
         with:
-          subject-name: ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-and-push-harbor.outputs.digest }}
           sbom-path: 'sbom.spdx.json'
           push-to-registry: true
@@ -111,7 +111,7 @@ jobs:
         run: |
           jq --arg hash "$SHA_ONLY" \
             --arg registry "${{ env.HARBOR_REGISTRY }}" \
-            --arg project "auto" '
+            --arg project "full-auto" '
             .statements |= map(
               .products = [
                 {
@@ -123,10 +123,10 @@ jobs:
 
       - name: Attest VEX
         run: |
-          cosign attest -y --predicate gophers-api.fixed.vex.json --type openvex ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY
+          cosign attest -y --predicate gophers-api.fixed.vex.json --type openvex ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}@sha256:$SHA_ONLY
 
       - name: Verify the image
         run: |
-          cosign verify ${{ env.HARBOR_REGISTRY }}/auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
+          cosign verify ${{ env.HARBOR_REGISTRY }}/full-auto/${{ env.IMAGE_NAME }}@${{ steps.build-and-push-harbor.outputs.digest }} \
           --certificate-identity=https://github.com/scraly/gophers-api/.github/workflows/release.yml@refs/heads/main \
           --certificate-oidc-issuer=https://token.actions.githubusercontent.com
