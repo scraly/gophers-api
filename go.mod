@@ -1,6 +1,6 @@
 module github.com/scraly/gophers-api
 
-go 1.25.0
+go 1.27.0
 
 require (
 	github.com/go-openapi/errors v0.20.2
